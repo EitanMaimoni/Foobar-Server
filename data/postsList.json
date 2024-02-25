@@ -1,0 +1,198 @@
+[
+    {
+        "postOwnerID": "a",
+        "content": "Beautiful day for a hike!",
+        "img": "../data/pic1.jpg",
+        "date": "2023-04-23T11:14:14.723498",
+        "comments": [
+            {
+                "commentOwnerID": "Jackson09",
+                "postId": "a",
+                "content": "Jam session with my band was awesome!",
+                "date": "2024-02-03T03:48:16.555973",
+                "likesID": [
+                    "a"
+                ]
+            },
+            {
+                "commentOwnerID": "Albert10",
+                "content": "Had a great time hiking this weekend!",
+                "date": "2023-06-17T10:29:42.761398",
+                "likesID": [
+                    "a"
+                ]
+            }
+        ],
+        "likesID": [
+            "Emma02",
+            "Olivia03",
+            "Ethan04"
+        ]
+    },
+    {
+        "postOwnerID": "Emma02",
+        "content": "Just finished reading a great book!",
+        "img": "../data/pic2.jpg",
+        "date": "2023-07-15T15:30:20.561234",
+        "comments": [
+            {
+                "commentOwnerID": "a",
+                "content": "Beautiful day for a hike!",
+                "date": "2023-04-23T11:14:14.723498",
+                "likesID": [
+                    "Emma02"
+                ]
+            }
+        ],
+        "likesID": [
+            "a"
+        ]
+    },
+    {
+        "postOwnerID": "Olivia03",
+        "content": "Exploring the city's art scene.",
+        "img": "../data/pic3.jpg",
+        "date": "2023-11-02T08:45:07.392561",
+        "comments": [
+            "Comment"
+        ],
+        "likesIDID": [
+            "a"
+        ]
+    },
+    {
+        "postOwnerID": "Ethan04",
+        "content": "Learning a new programming language.",
+        "img": "../data/pic4.jpg",
+        "date": "2024-01-19T17:50:35.210145",
+        "comments": [
+            {
+                "commentOwnerID": "Olivia03",
+                "content": "Exploring the city's art scene.",
+                "date": "2023-11-02T08:45:07.392561",
+                "likesIDID": [
+                    "Ethan04"
+                ]
+            }
+        ],
+        "likesID": [
+            "a"
+        ]
+    },
+    {
+        "postOwnerID": "Ava05",
+        "content": "Gardening is so relaxing.",
+        "img": "../data/pic5.jpg",
+        "date": "2023-08-05T22:11:44.736482",
+        "comments": [
+            {
+                "commentOwnerID": "Ethan04",
+                "content": "Learning a new programming language.",
+                "date": "2024-01-19T17:50:35.210145",
+                "likesID": [
+                    "Ava05"
+                ]
+            },
+            {
+                "commentOwnerID": "Sophia08",
+                "content": "Enjoying the new art exhibit downtown.",
+                "date": "2023-10-07T19:33:58.124856",
+                "likesID": [
+                    "Ava05"
+                ]
+            }
+        ],
+        "likesID": [
+            "a"
+        ]
+    },
+    {
+        "postOwnerID": "Mia06",
+        "content": "Cooked a new recipe today!",
+        "img": "../data/pic6.jpg",
+        "date": "2023-05-28T06:05:51.873519",
+        "comments": [
+            {
+                "commentOwnerID": "Emma02",
+                "content": "Just finished reading a great book!",
+                "date": "2023-07-15T15:30:20.561234",
+                "likesID": [
+                    "Emma02"
+                ]
+            }
+        ],
+        "likesID": [
+            "a"
+        ]
+    },
+    {
+        "postOwnerID": "Noah07",
+        "content": "Went on an amazing adventure.",
+        "img": "../data/pic7.jpg",
+        "date": "2023-09-12T13:21:30.489731",
+        "comments": [
+            {
+                "commentOwnerID": "Mia06",
+                "content": "Cooked a new recipe today!",
+                "date": "2023-05-28T06:05:51.873519",
+                "likesID": [
+                    "Noah07"
+                ]
+            }
+        ],
+        "likesID": [
+            "a"
+        ]
+    },
+    {
+        "postOwnerID": "Sophia08",
+        "content": "Enjoying the new art exhibit downtown.",
+        "img": "../data/pic8.jpg",
+        "date": "2023-10-07T19:33:58.124856",
+        "comments": [
+            {
+                "commentOwnerID": "Ava05",
+                "postId": "Sophia08",
+                "content": "Gardening is so relaxing.",
+                "date": "2023-08-05T22:11:44.736482",
+                "likesID": [
+                    "Sophia08"
+                ]
+            }
+        ],
+        "likesID": [
+            "a"
+        ]
+    },
+    {
+        "postOwnerID": "Jackson09",
+        "content": "Jam session with my band was awesome!",
+        "img": "../data/pic9.jpg",
+        "date": "2024-02-03T03:48:16.555973",
+        "comments": [
+            {
+                "commentOwnerID": "Noah07",
+                "content": "Went on an amazing adventure.",
+                "date": "2023-09-12T13:21:30.489731",
+                "likesID": [
+                    "Jackson09"
+                ]
+            }
+        ],
+        "likesID": [
+            "a"
+        ]
+    },
+    {
+        "postOwnerID": "Albert10",
+        "content": "Had a great time hiking this weekend!",
+        "img": "../data/pic10.jpg",
+        "date": "2023-06-17T10:29:42.761398",
+        "comments": [
+            "Comment"
+        ],
+        "likesID": [
+            "a"
+        ]
+    }
+]
