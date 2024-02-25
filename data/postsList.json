@@ -1,8 +1,8 @@
 [
     {
         "postOwnerID": "a",
-        "content": "Beautiful day for a hike!",
-        "img": "../data/pic1.jpg",
+        "content": "Cuteis!",
+        "img": "../data/pic11.jpg",
         "date": "2023-04-23T11:14:14.723498",
         "comments": [
             {
@@ -31,8 +31,8 @@
     },
     {
         "postOwnerID": "Emma02",
-        "content": "Just finished reading a great book!",
-        "img": "../data/pic2.jpg",
+        "content": "My son just started to read books!",
+        "img": "../data/pic12.jpg",
         "date": "2023-07-15T15:30:20.561234",
         "comments": [
             {
@@ -50,8 +50,8 @@
     },
     {
         "postOwnerID": "Olivia03",
-        "content": "Exploring the city's art scene.",
-        "img": "../data/pic3.jpg",
+        "content": "Cooking is my second love!",
+        "img": "../data/pic13.jpg",
         "date": "2023-11-02T08:45:07.392561",
         "comments": [
             "Comment"
@@ -62,8 +62,8 @@
     },
     {
         "postOwnerID": "Ethan04",
-        "content": "Learning a new programming language.",
-        "img": "../data/pic4.jpg",
+        "content": "Just Bought a new pet!",
+        "img": "../data/pic14.jpg",
         "date": "2024-01-19T17:50:35.210145",
         "comments": [
             {
@@ -81,8 +81,8 @@
     },
     {
         "postOwnerID": "Ava05",
-        "content": "Gardening is so relaxing.",
-        "img": "../data/pic5.jpg",
+        "content": "what an amazing scene!",
+        "img": "../data/pic15.jpg",
         "date": "2023-08-05T22:11:44.736482",
         "comments": [
             {
@@ -108,8 +108,8 @@
     },
     {
         "postOwnerID": "Mia06",
-        "content": "Cooked a new recipe today!",
-        "img": "../data/pic6.jpg",
+        "content": "I wish i was there.",
+        "img": "../data/pic16.jpg",
         "date": "2023-05-28T06:05:51.873519",
         "comments": [
             {
@@ -127,8 +127,8 @@
     },
     {
         "postOwnerID": "Noah07",
-        "content": "Went on an amazing adventure.",
-        "img": "../data/pic7.jpg",
+        "content": "Im gonna murder this guy. What a joy :D",
+        "img": "../data/pic17.jpg",
         "date": "2023-09-12T13:21:30.489731",
         "comments": [
             {
@@ -146,8 +146,8 @@
     },
     {
         "postOwnerID": "Sophia08",
-        "content": "Enjoying the new art exhibit downtown.",
-        "img": "../data/pic8.jpg",
+        "content": "Enjoying the new scene of this amazing land :)",
+        "img": "../data/pic18.jpg",
         "date": "2023-10-07T19:33:58.124856",
         "comments": [
             {
@@ -166,8 +166,8 @@
     },
     {
         "postOwnerID": "Jackson09",
-        "content": "Jam session with my band was awesome!",
-        "img": "../data/pic9.jpg",
+        "content": "Taking a ride with my homies",
+        "img": "../data/pic19.jpg",
         "date": "2024-02-03T03:48:16.555973",
         "comments": [
             {
@@ -185,8 +185,8 @@
     },
     {
         "postOwnerID": "Albert10",
-        "content": "Had a great time hiking this weekend!",
-        "img": "../data/pic10.jpg",
+        "content": "Im gonna hunt him and have a good dinner today!",
+        "img": "../data/pic20.jpg",
         "date": "2023-06-17T10:29:42.761398",
         "comments": [
             "Comment"
