@@ -17,30 +17,30 @@ const authUser = async (username, password) => {
     // If passwords match, return the user, otherwise return null
     return password == user.password ? true : false
 };
-const getUserProfileImageByUsername = async (username) => {
+const getUserProfileImageByUsername = async (ownerId) => {
     try {
-        const user = await User.findOne({ username: username }, 'img'); // Select only the img field
+        const user = await User.findOne({ _id: ownerId });
         if (!user) {
             throw new Error('User not found');
         }
-        return user.img; // Return the image URL
-    } catch (error) {
-        throw error; // Propagate the error
-    }
-};
-const getUserDetailsByUsername = async (username) => {
-    try {
-        const user = await User.findOne({ username: username }, 'img nick'); // Fetch both img and nick fields
-        if (!user) {
-            throw new Error('User not found');
-        }
-        return {
-            img: user.img,
-            nick: user.nick
-        };
+        return user.img;
     } catch (error) {
         throw error; // Propagate the error
     }
 };
 
-module.exports = { createUser, authUser, getUserProfileImageByUsername,getUserDetailsByUsername}
+const getUserNickByUsername = async (ownerId) => {
+    try {
+        const user = await User.findOne({ _id: ownerId }); 
+        if (!user) {
+            throw new Error('User not found');
+        }
+        return user.nick;
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
+
+module.exports = { createUser, authUser, getUserProfileImageByUsername,getUserNickByUsername}

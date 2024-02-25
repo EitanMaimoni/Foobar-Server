@@ -17,13 +17,23 @@ const getUserDetails = async (req, res) => {
     }
 };
 
+const getUsernickname = async (req, res) => {
+    try {
+        const ownerId = req.params.id;
+        const nickname = await userService.getUserNickByUsername(ownerId);
+        res.json({ nickname }); 
+    }catch(error){
+        res.status(404).json({ message: error.message });
+    }
+}
+
 const getUserImage = async (req, res) => {
     try {
-        const username = req.params.name; 
-        const imgUrl = await userService.getUserProfileImageByUsername(username);
+        const ownerId = req.params.id; 
+        const imgUrl = await userService.getUserProfileImageByUsername(ownerId);
         res.json({ imgUrl }); 
     } catch (error) {
         res.status(404).json({ message: error.message }); // User not found or other errors
     }
 };
-module.exports = { createUser, authUser, getUserImage,getUserDetails }
+module.exports = { createUser, authUser, getUserImage,getUsernickname }
