@@ -28,19 +28,18 @@ const getUserProfileImageByUsername = async (username) => {
         throw error; // Propagate the error
     }
 };
-const getUserDetailsByUsername = async (username) => {
+const getUserNickByUsername = async (username) => {
     try {
-        const user = await User.findOne({ username: username }, 'img nick'); // Fetch both img and nick fields
+        const user = await User.findOne({ username: username }, 'nick'); 
         if (!user) {
             throw new Error('User not found');
         }
-        return {
-            img: user.img,
-            nick: user.nick
-        };
-    } catch (error) {
-        throw error; // Propagate the error
+        return user.nick;
     }
-};
+    catch (error) {
+        throw error;
+    }
+}
 
-module.exports = { createUser, authUser, getUserProfileImageByUsername,getUserDetailsByUsername}
+
+module.exports = { createUser, authUser, getUserProfileImageByUsername,getUserNickByUsername}
