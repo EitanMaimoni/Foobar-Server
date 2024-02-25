@@ -1,0 +1,82 @@
+[
+    {
+        "username": "a",
+        "nick": "JamestheExplorer",
+        "password": "a",
+        "img": "../data/pic1.jpg",
+        "friends": ["Emma02", "Olivia03", "Ethan04", "Ava05", "Mia06", "Noah07", "Sophia08", "Jackson09", "Albert10"],
+        "posts": ["aPost"]
+    },
+    {
+        "username": "Emma02",
+        "nick": "BookwormEmma",
+        "password": "password123",
+        "img": "../data/pic2.jpg",
+        "friends": ["a", "Mia06", "Jackson09"],
+        "posts": ["Emma02Post"]
+    },
+    {
+        "username": "Olivia03",
+        "nick": "OliviaArtist",
+        "password": "password123",
+        "img": "../data/pic3.jpg",
+        "friends": ["a", "Albert10", "Ethan04"],
+        "posts": ["Olivia03Post"]
+    },
+    {
+        "username": "Ethan04",
+        "nick": "EthanCoder",
+        "password": "password123",
+        "img": "../data/pic4.jpg",
+        "friends": ["a", "Ava05", "Olivia03"],
+        "posts": ["Ethan04Post"]
+    },
+    {
+        "username": "Ava05",
+        "nick": "AvaGardener",
+        "password": "password123",
+        "img": "../data/pic5.jpg",
+        "friends": ["a", "Ethan04", "Sophia08"],
+        "posts": ["Ava05Post"]
+    },
+    {
+        "username": "Mia06",
+        "nick": "MiaChef",
+        "password": "password123",
+        "img": "../data/pic6.jpg",
+        "friends": ["a", "Emma02", "Noah07"],
+        "posts": ["Mia06Post"]
+    },
+    {
+        "username": "Noah07",
+        "nick": "NoahAdventurer",
+        "password": "password123",
+        "img": "../data/pic7.jpg",
+        "friends": ["a", "Jackson09", "Mia06"],
+        "posts": ["Noah07Post"]
+    },
+    {
+        "username": "Sophia08",
+        "nick": "SophiaArtist",
+        "password": "password123",
+        "img": "../data/pic8.jpg",
+        "friends": ["a", "Albert10", "Ava05"],
+        "posts": ["Sophia08Post"]
+    },
+    {
+        "username": "Jackson09",
+        "nick": "JacksonMusician",
+        "password": "password123",
+        "img": "../data/pic9.jpg",
+        "friends": ["a", "Noah07", "Emma02"],
+        "posts": ["Jackson09Post"]
+    },
+    {
+        "username": "Albert10",
+        "nick": "IsabellaTheGreat",
+        "password": "password123",
+        "img": "../data/pic10.jpg",
+        "friends": ["a", "Sophia08", "Olivia03"],
+        "posts": ["Albert10Post"]
+    }
+]
