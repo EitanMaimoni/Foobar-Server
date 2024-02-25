@@ -1,3 +1,4 @@
+const authenticateToken = require('../middleware/authenticateToken');
 const postController = require('../controllers/post');
 const userController = require('../controllers/user');
 
@@ -8,7 +9,7 @@ var router = express.Router();
 router.route('/profile/:name').get(userController.getUserImage)
 router.route('/get').get(postController.getPosts)
 
-router.route('/add').post(postController.createPost);
+router.route('/add').post(authenticateToken, postController.createPost);
 
 router.route('/:id').get(postController.getPost)
         .patch(postController.updatePost)

@@ -1,9 +1,16 @@
 const postService = require('../services/post');
 
-
 const createPost = async (req, res) => {
-    res.json(await postService.createPost(req.body.postOwnerID, req.body.content, req.body.img,
-                                          req.body.date, req.body.comments, req.body.likesID))
+    // Use the userId from the request, set by the middleware
+    const postOwnerID = req.userId; 
+    const { content, img, date, comments, likesID } = req.body;
+
+    try {
+        const post = await postService.createPost(postOwnerID, content, img, date, comments, likesID);
+        res.json(post);
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating post' });
+    }
 };
 
 const getPost = async(req,res)=>{

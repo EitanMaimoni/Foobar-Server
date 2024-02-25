@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Post = new Schema({ 
+    _id:{
+        type: String,
+    },
     postOwnerID: {
         type: String,
         required: true

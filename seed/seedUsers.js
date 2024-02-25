@@ -19,11 +19,11 @@ const seedUsers = async () => {
         const userCount = await User.countDocuments();
         if (userCount === 0) {
             // Convert image paths to Base64
-            const updatedUsersData = usersData.map(user => {
-                if (user.img) {
-                    return { ...user, img: imageToBase64(user.img) };
-                }
-                return user;
+            const updatedUsersData = usersData.map((user) => {
+                return { 
+                    ...user,
+                    img: imageToBase64(user.img) 
+                };
             });
 
             await User.insertMany(updatedUsersData);

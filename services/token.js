@@ -6,7 +6,7 @@ const createToken = async (username) => {
     if (!user) {
         throw new Error('Invalid credentials');
     }
-    const token = jwt.sign({ _id: user._id }, 'My_Secret_Key_Shhhh');
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
     return token;
 }
 
