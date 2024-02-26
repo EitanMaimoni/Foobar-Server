@@ -97,23 +97,21 @@ const addComment = async (req, res) => {
         res.status(500).json({ errors: ['Internal server error'] });
     }
 };
+
 const deleteComment = async (req, res) => {
     try {
-        const post = await postService.getPostById(req.params.id);
-        if (!post) {
-            return res.status(404).json({ errors: ['Post not found'] });
+        const postid = req.params.postid;
+        const commentid = req.params.commentid;
+        const result = await postService.deleteComment(postid, commentid, req.userId);
+        if (result.error) {
+            return res.status(result.status).json({ errors: [result.error] });
         }
-        const commenntOwnerID = req.params.commentowner;
-        const userId = req.userId;
-        if( commenntOwnerID != userId){
-            return res.status(401).json({ errors: ['Unauthorized'] });
-        }
-        const commentIndex = post.comments.findIndex(comment => comment._id == req.params.commentid);
+        res.json(post.comments);
     } catch (error) {
         console.error('Failed to delete comment:', error);
         res.status(500).json({ errors: ['Internal server error'] });
     }
-}
+};
 const likeComment = async (req, res) => {
     try {
         const post = await postService.getPostById(req.params.id);

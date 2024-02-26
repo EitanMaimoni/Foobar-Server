@@ -13,6 +13,8 @@ const getPostById = async (id) => {
 }
 
 const getPosts = async () => {
+    console.log(Post.find({}))
+    
     return await Post.find({});
 }
 
@@ -43,7 +45,7 @@ const addComment = async (commentOwnerID, content, post) => {
     const _id = new mongoose.Types.ObjectId();
     const date = new Date();
     const likes = [];
-    const newComment = { _id, commentOwnerID, content, date, likes };
+    const newComment = {commentOwnerID, content, date, likes , _id };
 
     await Post.updateOne(
         { _id: post._id },
@@ -53,12 +55,28 @@ const addComment = async (commentOwnerID, content, post) => {
     return newComment;
 };
 
+const deleteComment = async (postId, commentId, userId) => {
+    try {
+        const post = await Post.findById(postId);
+        if (!post) {
+            return { status: 404, error: 'Post not found' };
+        }
+        // Find the index of the comment to be deleted
+        const commentIndex = post.comments.findIndex(comment => comment._id.toString() === commentId);
+        // If comment not found or user is not authorized to delete it
+        if (commentIndex === -1 || post.comments[commentIndex].commentOwnerID !== userId) {
+            return { status: 404, error: 'Comment not found or unauthorized' };
+        }
+        // Remove the comment from the array
+        post.comments.splice(commentIndex, 1);
+        await post.save();
+        return { status: 200, message: 'Comment deleted successfully', comments: post.comments };
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        return { status: 500, error: 'Internal server error' };
+    }
+};
 
 
 
-const getUsernickname = async (id) => {
-    const user = await User.findById(id);
-    return user.nickname;
-}
-
-module.exports = { createPost, getPosts, getPostById, updatePost, likePost, deletePost, addComment }
+module.exports = { createPost, getPosts, getPostById, updatePost, likePost, deletePost, addComment,deleteComment }
