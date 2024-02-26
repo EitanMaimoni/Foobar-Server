@@ -20,6 +20,8 @@ router.route('/delete/:id').delete(authenticateToken, postController.deletePost)
 router.route('/edit/:id').get(authenticateToken, postController.checkIfAuth)
 router.route('/edit/:id').patch(authenticateToken, postController.updatePost)
 
+router.route('/comment/edit/:postid/:commentname').get(authenticateToken, postController.checkIfAuthComment)
+router.route('/comment/edit/:postid/:commentid').patch(authenticateToken, postController.updateComment)
 router.route('/comment/:id').post(authenticateToken, postController.addComment)
 router.route('/comment/:postid/:commentid').delete(authenticateToken, postController.deleteComment)
 /*router.route('/comment/like/:postid').put(authenticateToken, postController.likeComment)*/

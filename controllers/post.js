@@ -47,8 +47,21 @@ const updatePost = async(req,res)=>{
         return res.status(500).json({errors:['Internal server error']})
     }
     res.json(updatedPost)
-    
 } 
+
+const updateComment = async (req, res) => {
+    const post = await postService.getPostById(req.params.postid);
+    const commentId = req.params.commentid;
+    if (!post) {
+        return res.status(404).json({ errors: ['Post not found'] });
+    }
+    const updateComment = await postService.updateComment(commentId,post, req.body.content);
+    if(!updateComment){
+        return res.status(500).json({errors:['Internal server error']})
+    }
+    res.json(updateComment)
+}
+
 const checkIfAuth = async(req,res)=>{
     const post = await postService.getPostById(req.params.id)
     if(!post){
@@ -59,6 +72,18 @@ const checkIfAuth = async(req,res)=>{
     }
     res.json(post)
 }
+
+const checkIfAuthComment = async(req,res)=>{
+    const post = await postService.getPostById(req.params.postid)
+    if(!post){
+        return res.status(404).json({errors:['Post not found']})
+    }
+    if(req.params.commentname != req.userId){
+        return res.status(401).json({errors:['Unauthorized']})
+    }
+    res.json(true);
+}
+
 
 const deletePost = async (req, res) => {
     try {
@@ -137,4 +162,5 @@ const likeComment = async (req, res) => {
         res.status(500).json({ errors: ['Internal server error'] });
     }
 }
-module.exports = { createPost,updatePost,getPosts,getPost,deletePost,likePost,addComment,deleteComment,checkIfAuth}
+    
+module.exports = { createPost,updatePost,getPosts,getPost,deletePost,likePost,addComment,deleteComment,checkIfAuth,updateComment,checkIfAuthComment}

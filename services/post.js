@@ -35,7 +35,14 @@ const updatePost = async (post, content) => {
     await post.save();
     return post
 }
-
+const updateComment = async (commentId,post, content) => {
+    if (!post) return null
+    const commentIndex = post.comments.find(comment => comment._id == commentId);
+    if (!commentIndex) return null
+    commentIndex.content = content
+    await post.save();
+    return commentIndex
+}
 const deletePost = async (post) => {
     return await post.deleteOne();
 }
@@ -80,4 +87,4 @@ const deleteComment = async (postId, commentId, userId) => {
 
 
 
-module.exports = { createPost, getPosts, getPostById, updatePost, likePost, deletePost, addComment,deleteComment }
+module.exports = { createPost, getPosts, getPostById, updatePost, likePost, deletePost, addComment,deleteComment ,updateComment}
