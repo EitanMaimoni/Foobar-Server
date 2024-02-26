@@ -34,17 +34,34 @@ const getPosts = async (req, res) => {
 
 
 const updatePost = async(req,res)=>{
-    const post = await postService.updatePost(req.body.postOwnerID, req.body.content, req.body.img,
-        req.body.date, req.body.comments, req.body.likesID)
-        if(!post){
-            return res.status(404).json({errors:['Post not found']})
-        }
-        res.json(post)
+    const post = await postService.getPostById(req.params.id)
+    if(!post){
+        return res.status(404).json({errors:['Post not found']})
+    }
+    if(post.postOwnerID != req.userId){
+        return res.status(401).json({errors:['Unauthorized']})
+    }
+
+    const updatedPost = await postService.updatePost(post,req.body.content)
+    if(!updatedPost){
+        return res.status(500).json({errors:['Internal server error']})
+    }
+    res.json(updatedPost)
+    
 } 
+const checkIfAuth = async(req,res)=>{
+    const post = await postService.getPostById(req.params.id)
+    if(!post){
+        return res.status(404).json({errors:['Post not found']})
+    }
+    if(post.postOwnerID != req.userId){
+        return res.status(401).json({errors:['Unauthorized']})
+    }
+    res.json(post)
+}
 
 const deletePost = async (req, res) => {
     try {
-        console.log(req.params.id)
         const post = await postService.getPostById(req.params.id);
         if (!post) {
             return res.status(404).json({ errors: ['Post not found'] });
@@ -73,11 +90,29 @@ const addComment = async (req, res) => {
         }
 
         await postService.addComment(req.userId, commentContent, post);
-        res.json({ message: 'Comment added successfully' });
+        //return the comments
+        res.json(post.comments);
     } catch (error) {
         console.error('Failed to add comment:', error);
         res.status(500).json({ errors: ['Internal server error'] });
     }
 };
+const deleteComment = async (req, res) => {
+    try {
+        const post = await postService.getPostById(req.params.id);
+        if (!post) {
+            return res.status(404).json({ errors: ['Post not found'] });
+        }
+        const commenntOwnerID = req.params.commentowner;
+        const userId = req.userId;
+        if( commenntOwnerID != userId){
+            return res.status(401).json({ errors: ['Unauthorized'] });
+        }
+        const commentIndex = post.comments.findIndex(comment => comment._id == req.params.commentid);
+    } catch (error) {
+        console.error('Failed to delete comment:', error);
+        res.status(500).json({ errors: ['Internal server error'] });
+    }
+}
 
-module.exports = { createPost,updatePost,getPosts,getPost,deletePost,likePost,addComment}
+module.exports = { createPost,updatePost,getPosts,getPost,deletePost,likePost,addComment,deleteComment,checkIfAuth}

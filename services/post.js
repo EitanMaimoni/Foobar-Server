@@ -1,4 +1,5 @@
 const  Post = require ('../models/post')
+const User = require ('../models/user')
 const mongoose = require('mongoose');
 
 const createPost = async (postOwnerID, content, img, date, comments, likesID) => {
@@ -8,20 +9,17 @@ const createPost = async (postOwnerID, content, img, date, comments, likesID) =>
 };
 
 const getPostById = async (id) => {
-    console.log("iddddddddddd",id)
-    const postaaa= await Post.findById(id);
-    console.log(postaaa)
-    return postaaa;
+    return await Post.findById(id);
 }
 
 const getPosts = async () => {
     return await Post.find({}); 
 }
 
-const updatePost = async(id,content) => {
-    const post = await getPostById(id)
+const updatePost = async(post,content) => {
     if(!post) return null
         post.content = content
+        console.log(post.content)
         await post.save();
         return post
 }
@@ -41,11 +39,16 @@ const likePost = async (postId, userId)=>{
     await post.save();
     return post;
 }
-const addComment = async (commentOwnerId, commentContent, post) => {
+const addComment = async (commentOwnerID, content, post) => {
     const date = new Date().toISOString();
     const likesID = [];
-    post.comments.push({ commentOwnerId,commentContent, date, likesID });
+    post.comments.push({commentOwnerID,content, date, likesID });
     return await post.save();
 };
+
+const getUsernickname = async (id) => {
+     const user = await User.findById(id);
+     return user.nickname;
+}
 
 module.exports = { createPost , getPosts, getPostById,updatePost,likePost,deletePost,addComment}

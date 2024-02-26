@@ -17,7 +17,10 @@ router.route('/:id').get(postController.getPost)
         .patch(postController.updatePost)
 
 router.route('/delete/:id').delete(authenticateToken, postController.deletePost)
+router.route('/edit/:id').get(authenticateToken, postController.checkIfAuth)
+router.route('/edit/:id').patch(authenticateToken, postController.updatePost)
 
 router.route('/comment/:id').post(authenticateToken, postController.addComment)
+router.route('/comment/:postid/:commentowner').delete(authenticateToken, postController.deleteComment)
 
 module.exports = router;

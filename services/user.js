@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const createUser = async (username, nick, password, img) => {
     const randomId = new mongoose.Types.ObjectId(); 
     const user = new User({ _id: randomId, username, nick, password, img })
-    console.log('1')
     return await user.save();
 }
 
