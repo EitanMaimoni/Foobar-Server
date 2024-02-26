@@ -114,5 +114,28 @@ const deleteComment = async (req, res) => {
         res.status(500).json({ errors: ['Internal server error'] });
     }
 }
-
+const likeComment = async (req, res) => {
+    try {
+        const post = await postService.getPostById(req.params.id);
+        if (!post) {
+            return res.status(404).json({ errors: ['Post not found'] });
+        }
+        const commentIndex = post.comments.findIndex(comment => comment._id == req.params.commentid);
+        if (commentIndex === -1) {
+            return res.status(404).json({ errors: ['Comment not found'] });
+        }
+        const comment = post.comments[commentIndex];
+        const userId = req.userId;
+        if (comment.likesID.includes(userId)) {
+            comment.likesID = comment.likesID.filter(id => id !== userId);
+        } else {
+            comment.likesID.push(userId);
+        }
+        await post.save();
+        res.json(comment.likesID.length);
+    } catch (error) {
+        console.error('Failed to like comment:', error);
+        res.status(500).json({ errors: ['Internal server error'] });
+    }
+}
 module.exports = { createPost,updatePost,getPosts,getPost,deletePost,likePost,addComment,deleteComment,checkIfAuth}

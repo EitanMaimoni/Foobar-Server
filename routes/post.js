@@ -22,5 +22,5 @@ router.route('/edit/:id').patch(authenticateToken, postController.updatePost)
 
 router.route('/comment/:id').post(authenticateToken, postController.addComment)
 router.route('/comment/:postid/:commentowner').delete(authenticateToken, postController.deleteComment)
-
+/*router.route('/comment/like/:postid').put(authenticateToken, postController.likeComment)*/
 module.exports = router;

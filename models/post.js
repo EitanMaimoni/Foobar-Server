@@ -23,6 +23,9 @@ const Post = new Schema({
         default: Date.now
     },
     comments: {
+        _id: {
+            type: String,
+        },
         type: [{commentOwnerID: {
             type: String,
             required: true
