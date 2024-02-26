@@ -22,11 +22,11 @@ const Post = new Schema({
         type: Date,
         default: Date.now
     },
-    comments: {
-        _id: {
-            type: String,
-        },
-        type: [{commentOwnerID: {
+    comments: { 
+        type: [{
+            _id: {
+                type: String,
+            },commentOwnerID: {
             type: String,
             required: true
         },

@@ -7,21 +7,31 @@ const createPost = async (postOwnerID, content, img, date, comments, likesID) =>
     const post = new Post({ _id: randomId, postOwnerID, content, img, date, comments, likesID });
     return await post.save();
 };
+const addComment = async (commentOwnerID, content, post) => {
+    const randomId = new mongoose.Types.ObjectId();
+    const date = new Date();
+    const likes = [];
+    const newComment = { _id: randomId,commentOwnerID, content, date, likes};
+
+    await Post.updateOne(
+        { _id: post._id },
+        { $push: { comments: newComment } }
+    );
+    return newComment;
+};
+
 
 const getPostById = async (id) => {
     return await Post.findById(id);
 }
 
-const getPosts = async () => {
-    console.log(Post.find({}))
-    
+const getPosts = async () => {    
     return await Post.find({});
 }
 
 const updatePost = async (post, content) => {
     if (!post) return null
     post.content = content
-    console.log(post.content)
     await post.save();
     return post
 }
@@ -41,36 +51,27 @@ const likePost = async (postId, userId) => {
     await post.save();
     return post;
 }
-const addComment = async (commentOwnerID, content, post) => {
-    const _id = new mongoose.Types.ObjectId();
-    const date = new Date();
-    const likes = [];
-    const newComment = {commentOwnerID, content, date, likes , _id };
-
-    await Post.updateOne(
-        { _id: post._id },
-        { $push: { comments: newComment } }
-    );
-
-    return newComment;
-};
-
+const getCommentById = async (post, commentId) => {
+    if (!post) return null
+    return post.comments.find(comment => comment._id == commentId);
+}
 const deleteComment = async (postId, commentId, userId) => {
     try {
         const post = await Post.findById(postId);
         if (!post) {
             return { status: 404, error: 'Post not found' };
         }
-        // Find the index of the comment to be deleted
-        const commentIndex = post.comments.findIndex(comment => comment._id.toString() === commentId);
-        // If comment not found or user is not authorized to delete it
-        if (commentIndex === -1 || post.comments[commentIndex].commentOwnerID !== userId) {
-            return { status: 404, error: 'Comment not found or unauthorized' };
+        const commentIndex = post.comments.find(comment => comment._id == commentId);
+        if (!commentIndex) {
+            return { status: 404, error: 'Comment not found' };
         }
-        // Remove the comment from the array
-        post.comments.splice(commentIndex, 1);
+        if (commentIndex.commentOwnerID != userId) {
+            return { status: 403, error: 'Unauthorized' };
+        }
+        post.comments = post.comments.filter(comment => comment._id.toString() !== commentId);
         await post.save();
-        return { status: 200, message: 'Comment deleted successfully', comments: post.comments };
+        return { status: 200, post: post }; 
+
     } catch (error) {
         console.error('Error deleting comment:', error);
         return { status: 500, error: 'Internal server error' };

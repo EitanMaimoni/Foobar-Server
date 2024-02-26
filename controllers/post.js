@@ -102,11 +102,12 @@ const deleteComment = async (req, res) => {
     try {
         const postid = req.params.postid;
         const commentid = req.params.commentid;
+       
         const result = await postService.deleteComment(postid, commentid, req.userId);
         if (result.error) {
             return res.status(result.status).json({ errors: [result.error] });
         }
-        res.json(post.comments);
+        res.json(result.post.comments);
     } catch (error) {
         console.error('Failed to delete comment:', error);
         res.status(500).json({ errors: ['Internal server error'] });
