@@ -8,7 +8,10 @@ const createPost = async (postOwnerID, content, img, date, comments, likesID) =>
 };
 
 const getPostById = async (id) => {
-    return await Post.findById(id);
+    console.log("iddddddddddd",id)
+    const postaaa= await Post.findById(id);
+    console.log(postaaa)
+    return postaaa;
 }
 
 const getPosts = async () => {
@@ -23,12 +26,26 @@ const updatePost = async(id,content) => {
         return post
 }
 
-const deletePost = async (id) =>{
-    const post = await getPostById(id)
-    if(!post) return Error("No such post")
-    post.content = content
-    await post.deleteOne();
-    return post;
+const deletePost = async (post) =>{
+    return  await post.deleteOne();
 }
 
-module.exports = { createPost , getPosts, getPostById,updatePost }
+const likePost = async (postId, userId)=>{
+    const post = await getPostById(postId)
+    if(!post) return null
+    if(post.likesID.includes(userId)){
+        post.likesID = post.likesID.filter(id => id !== userId)
+    }else{
+        post.likesID.push(userId)
+    }
+    await post.save();
+    return post;
+}
+const addComment = async (commentOwnerId, commentContent, post) => {
+    const date = new Date().toISOString();
+    const likesID = [];
+    post.comments.push({ commentOwnerId,commentContent, date, likesID });
+    return await post.save();
+};
+
+module.exports = { createPost , getPosts, getPostById,updatePost,likePost,deletePost,addComment}

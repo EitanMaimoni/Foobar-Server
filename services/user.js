@@ -1,8 +1,11 @@
 const User = require('../models/user')
+const mongoose = require('mongoose');
 
 const createUser = async (username, nick, password, img) => {
-    const user = new User({ username, nick, password, img })
-    return await user.save();
+    const randomId = new mongoose.Types.ObjectId(); 
+    const user = new User({ _id: randomId, username, nick, password, img })
+    console.log('1')
+    return await user.save();
 }
 
 const authUser = async (username, password) => {

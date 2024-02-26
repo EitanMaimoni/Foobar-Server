@@ -11,8 +11,13 @@ router.route('/get').get(postController.getPosts)
 
 router.route('/add').post(authenticateToken, postController.createPost);
 
+router.route('/like/:id').put(authenticateToken, postController.likePost)
+
 router.route('/:id').get(postController.getPost)
         .patch(postController.updatePost)
-        .delete(postController.deletePost)
+
+router.route('/delete/:id').delete(authenticateToken, postController.deletePost)
+
+router.route('/comment/:id').post(authenticateToken, postController.addComment)
 
 module.exports = router;
