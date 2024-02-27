@@ -38,6 +38,9 @@
 
     const post = require('./routes/post');
     app.use('/api/posts', post);
+
+    const token = require('./routes/token');
+    app.use('/api/tokens', token);
     
     app.listen(process.env.PORT);
 

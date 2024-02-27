@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
+const ThemeImg = require('../data/themeImg')
 
 const Schema = mongoose.Schema;
 
 const User = new Schema({
+    _id:{
+        type: String,
+    },
     username: {
         type: String,
         required: true
@@ -14,6 +18,11 @@ const User = new Schema({
     password: {
         type: String,
         required: true
+    },
+    coverImg: {
+        type: String, 
+        required: false,
+        default: ThemeImg
     },
     img: {
         type: String, 
@@ -28,6 +37,5 @@ const User = new Schema({
         required: false
     }
 });
-
 
 module.exports = mongoose.model('User', User);

@@ -23,11 +23,9 @@ const seedPosts = async () => {
         const postCount = await collection.countDocuments();
 
         if (postCount === 0) {
-            const postsWithCustomId = postsData.map((post, index) => {
-                const customId = `${post.postOwnerID}Post`;
+            const postsWithCustomId = postsData.map((post) => {
                 return {
                     ...post,
-                    _id: customId,
                     img: post.img ? imageToBase64(post.img) : null
                 };
             });
