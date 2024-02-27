@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const Post = new Schema({ 
-    _id:{
+const Post = new Schema({
+    _id: {
         type: String,
     },
     postOwnerID: {
@@ -15,7 +15,7 @@ const Post = new Schema({
         required: false
     },
     img: {
-        type: String, 
+        type: String,
         required: false
     },
     date: {
@@ -23,22 +23,26 @@ const Post = new Schema({
         default: Date.now
     },
     comments: {
-        type: [{commentOwnerID: {
-            type: String,
-            required: true
-        },
-        content: {
-            type: String,
-            required: false
-        },
-        date: {
-            type: Date,
-            default: Date.now
-        },
-        likes: {
-            type: [String],
-            required: false
-        }}],
+        type: [{
+            _id: {
+                type: String,
+            }, commentOwnerID: {
+                type: String,
+                required: true
+            },
+            content: {
+                type: String,
+                required: false
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            },
+            likes: {
+                type: [String],
+                required: false
+            }
+        }],
         required: false
     },
     likesID: {

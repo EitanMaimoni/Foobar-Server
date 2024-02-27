@@ -7,18 +7,20 @@
         "date": "2023-04-23T11:14:14.723498",
         "comments": [
             {
+                "_id": "1",
                 "commentOwnerID": "Jackson09User",
                 "content": "Jam session with my band was awesome!",
                 "date": "2024-02-03T03:48:16.555973",
-                "likesID": [
+                "likes": [
                     "aUser"
                 ]
             },
             {
+                "_id": "2",
                 "commentOwnerID": "Albert10User",
                 "content": "Had a great time hiking this weekend!",
                 "date": "2023-06-17T10:29:42.761398",
-                "likesID": [
+                "likes": [
                     "aUser"
                 ]
             }
@@ -37,10 +39,11 @@
         "date": "2023-07-15T15:30:20.561234",
         "comments": [
             {
+                "_id": "3",
                 "commentOwnerID": "aUser",
                 "content": "Beautiful day for a hike!",
                 "date": "2023-04-23T11:14:14.723498",
-                "likesID": [
+                "likes": [
                     "Emma02User"
                 ]
             }
@@ -68,10 +71,11 @@
         "date": "2024-01-19T17:50:35.210145",
         "comments": [
             {
+                "_id": "4",
                 "commentOwnerID": "Olivia03User",
                 "content": "Exploring the city's art scene.",
                 "date": "2023-11-02T08:45:07.392561",
-                "likesIDID": [
+                "likes": [
                     "Ethan04User"
                 ]
             }
@@ -88,18 +92,20 @@
         "date": "2023-08-05T22:11:44.736482",
         "comments": [
             {
+                "_id": "5",
                 "commentOwnerID": "Ethan04User",
                 "content": "Learning a new programming language.",
                 "date": "2024-01-19T17:50:35.210145",
-                "likesID": [
+                "likes": [
                     "Ava05User"
                 ]
             },
             {
+                "_id": "6",
                 "commentOwnerID": "Sophia08User",
                 "content": "Enjoying the new art exhibit downtown.",
                 "date": "2023-10-07T19:33:58.124856",
-                "likesID": [
+                "likes": [
                     "Ava05User"
                 ]
             }
@@ -116,10 +122,11 @@
         "date": "2023-05-28T06:05:51.873519",
         "comments": [
             {
+                "_id": "7",
                 "commentOwnerID": "Emma02User",
                 "content": "Just finished reading a great book!",
                 "date": "2023-07-15T15:30:20.561234",
-                "likesID": [
+                "likes": [
                     "Emma02User"
                 ]
             }
@@ -136,10 +143,11 @@
         "date": "2023-09-12T13:21:30.489731",
         "comments": [
             {
+                "_id": "8",
                 "commentOwnerID": "Mia06User",
                 "content": "Cooked a new recipe today!",
                 "date": "2023-05-28T06:05:51.873519",
-                "likesID": [
+                "likes": [
                     "Noah07User"
                 ]
             }
@@ -156,10 +164,11 @@
         "date": "2023-10-07T19:33:58.124856",
         "comments": [
             {
+                "_id": "9",
                 "commentOwnerID": "Ava05User",
                 "content": "Gardening is so relaxing.",
                 "date": "2023-08-05T22:11:44.736482",
-                "likesID": [
+                "likes": [
                     "Sophia08User"
                 ]
             }
@@ -176,10 +185,11 @@
         "date": "2024-02-03T03:48:16.555973",
         "comments": [
             {
+                "_id": "10",
                 "commentOwnerID": "Noah07User",
                 "content": "Went on an amazing adventure.",
                 "date": "2023-09-12T13:21:30.489731",
-                "likesID": [
+                "likes": [
                     "Jackson09User"
                 ]
             }
