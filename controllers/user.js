@@ -8,12 +8,14 @@ const createUser = async (req, res) => {
 const authUser = async (req, res) => {
     res.json(await userService.authUser(req.body.username, req.body.password))
 };
-const getUserDetails = async (req, res) => {
+
+
+const getUsernickname = async (req, res) => {
     try {
         const username = req.params.name; 
-        const userDetails = await userService.getUserDetailsByUsername(username);
-        res.json(userDetails); // Send both img and nick in the response
-    } catch (error) {
+        const nickname = await userService.getUserNickByUsername(username);
+        res.json({ nickname }); 
+    }catch(error){
         res.status(404).json({ message: error.message });
     }
 };
