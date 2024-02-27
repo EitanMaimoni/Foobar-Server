@@ -2,7 +2,7 @@ const tokenService = require('../services/token');
 
 const createToken = async (req, res) => {
     try {
-        const token = await tokenService.createToken(req.body.username);
+        const token = await tokenService.createToken(req.body.username, req.body.password);
         res.json({ token });
     } catch (error) {
         if (error.message === 'Invalid credentials') {

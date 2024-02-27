@@ -45,4 +45,31 @@ const getUserNickByUsername = async (ownerId) => {
 }
 
 
-module.exports = { createUser, authUser, getUserProfileImageByUsername,getUserNickByUsername}
+const getInfo = async (userId) => {
+    try {
+        // Assuming ownerId is being used for some purpose in your code
+        const ownerId = req.userId;
+
+        // Find the user by their ID
+        const user = await User.findOne({ _id: userId });
+
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Return the required fields
+        return res.json({
+            nickname: user.nick, 
+            img: user.img, 
+            coverImg: user.coverImg 
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message }); // Internal Server Error
+    }
+}
+
+
+
+module.exports = { createUser, authUser, getUserProfileImageByUsername, getUserNickByUsername, getInfo}

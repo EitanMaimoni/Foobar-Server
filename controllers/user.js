@@ -1,6 +1,7 @@
 const userService = require('../services/user');
 
 const createUser = async (req, res) => {
+    
     res.json(await userService.createUser(req.body.username, req.body.nick, req.body.password, req.body.img))
 };
 
@@ -36,4 +37,16 @@ const getUserImage = async (req, res) => {
         res.status(404).json({ message: error.message }); // User not found or other errors
     }
 };
-module.exports = { createUser, authUser, getUserImage,getUsernickname }
+const getUserID = async (req, res) => {
+    try {
+        const ownerId = req.userId; 
+        return res.json({ ownerId }); 
+         
+    } catch (error) {
+        res.status(404).json({ message: error.message }); // User not found or other errors
+    }
+}
+const getInfo = async (req, res) => {
+    res.json(await userService.getInfo(req.userId))
+};
+module.exports = { createUser, authUser, getUserImage, getUsernickname, getUserID, getInfo }
