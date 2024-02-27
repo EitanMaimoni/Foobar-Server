@@ -2,7 +2,7 @@ const postService = require('../services/post');
 
 const createPost = async (req, res) => {
     // Use the userId from the request, set by the middleware
-    const postOwnerID = req.userId; 
+    const postOwnerID = req.userId;
     const { content, img, date, comments, likesID } = req.body;
 
     try {
@@ -12,6 +12,55 @@ const createPost = async (req, res) => {
         res.status(500).json({ message: 'Error creating post' });
     }
 };
+
+const updateImage = async (req, res) => {
+    const post = await postService.getPostById(req.params.id)
+    const img = req.body.image;
+    console.log(req.body.image)
+    if(post.postOwnerID != req.userId){
+        return res.status(401).json({ errors: ['Unauthorized'] })
+    }
+    try{
+        const updatedPost = await postService.updateImage(post, img)
+        if (!updatedPost) {
+            return res.status(500).json({ errors: ['Internal server error'] })
+        }
+        res.json(updatedPost)
+    }catch (error) {
+        res.status(500).json({ message: 'Error updating image' });
+    }
+}
+
+
+
+const getPost = async (req, res) => {
+    const post = await postService.getPostById(req.params.id)
+    if (!post) {
+        return res.status(404).json({ errors: ['Post not found'] })
+    }
+    res.json(post)
+}
+
+const getPosts = async (req, res) => {
+    res.json(await postService.getPosts());
+}
+
+const updatePost = async (req, res) => {
+    const post = await postService.getPostById(req.params.id)
+    if (!post) {
+        return res.status(404).json({ errors: ['Post not found'] })
+    }
+    if (post.postOwnerID != req.userId) {
+        return res.status(401).json({ errors: ['Unauthorized'] })
+    }
+
+    const updatedPost = await postService.updatePost(post, req.body.content)
+    if (!updatedPost) {
+        return res.status(500).json({ errors: ['Internal server error'] })
+    }
+    res.json(updatedPost)
+}
+
 const likePost = async (req, res) => {
     const post = await postService.likePost(req.params.id, req.userId);
     if (!post) {
@@ -20,70 +69,16 @@ const likePost = async (req, res) => {
     res.json(post.likesID.length);
 }
 
-const getPost = async(req,res)=>{
+const checkIfAuth = async (req, res) => {
     const post = await postService.getPostById(req.params.id)
-    if(!post){
-        return res.status(404).json({errors:['Post not found']})
-    }
-    res.json(post)
-}
-
-const getPosts = async (req, res) => {
-    res.json(await postService.getPosts()); 
-}
-
-
-const updatePost = async(req,res)=>{
-    const post = await postService.getPostById(req.params.id)
-    if(!post){
-        return res.status(404).json({errors:['Post not found']})
-    }
-    if(post.postOwnerID != req.userId){
-        return res.status(401).json({errors:['Unauthorized']})
-    }
-
-    const updatedPost = await postService.updatePost(post,req.body.content)
-    if(!updatedPost){
-        return res.status(500).json({errors:['Internal server error']})
-    }
-    res.json(updatedPost)
-} 
-
-const updateComment = async (req, res) => {
-    const post = await postService.getPostById(req.params.postid);
-    const commentId = req.params.commentid;
     if (!post) {
-        return res.status(404).json({ errors: ['Post not found'] });
+        return res.status(404).json({ errors: ['Post not found'] })
     }
-    const updateComment = await postService.updateComment(commentId,post, req.body.content);
-    if(!updateComment){
-        return res.status(500).json({errors:['Internal server error']})
-    }
-    res.json(updateComment)
-}
-
-const checkIfAuth = async(req,res)=>{
-    const post = await postService.getPostById(req.params.id)
-    if(!post){
-        return res.status(404).json({errors:['Post not found']})
-    }
-    if(post.postOwnerID != req.userId){
-        return res.status(401).json({errors:['Unauthorized']})
+    if (post.postOwnerID != req.userId) {
+        return res.status(401).json({ errors: ['Unauthorized'] })
     }
     res.json(post)
 }
-
-const checkIfAuthComment = async(req,res)=>{
-    const post = await postService.getPostById(req.params.postid)
-    if(!post){
-        return res.status(404).json({errors:['Post not found']})
-    }
-    if(req.params.commentname != req.userId){
-        return res.status(401).json({errors:['Unauthorized']})
-    }
-    res.json(true);
-}
-
 
 const deletePost = async (req, res) => {
     try {
@@ -102,6 +97,10 @@ const deletePost = async (req, res) => {
         return res.status(500).json({ errors: ['Internal server error'] });
     }
 }
+
+
+
+
 const addComment = async (req, res) => {
     try {
         const post = await postService.getPostById(req.params.id);
@@ -127,7 +126,7 @@ const deleteComment = async (req, res) => {
     try {
         const postid = req.params.postid;
         const commentid = req.params.commentid;
-       
+
         const result = await postService.deleteComment(postid, commentid, req.userId);
         if (result.error) {
             return res.status(result.status).json({ errors: [result.error] });
@@ -138,29 +137,42 @@ const deleteComment = async (req, res) => {
         res.status(500).json({ errors: ['Internal server error'] });
     }
 };
+
 const likeComment = async (req, res) => {
-    try {
-        const post = await postService.getPostById(req.params.id);
-        if (!post) {
-            return res.status(404).json({ errors: ['Post not found'] });
-        }
-        const commentIndex = post.comments.findIndex(comment => comment._id == req.params.commentid);
-        if (commentIndex === -1) {
-            return res.status(404).json({ errors: ['Comment not found'] });
-        }
-        const comment = post.comments[commentIndex];
-        const userId = req.userId;
-        if (comment.likesID.includes(userId)) {
-            comment.likesID = comment.likesID.filter(id => id !== userId);
-        } else {
-            comment.likesID.push(userId);
-        }
-        await post.save();
-        res.json(comment.likesID.length);
-    } catch (error) {
-        console.error('Failed to like comment:', error);
-        res.status(500).json({ errors: ['Internal server error'] });
+    const commentId = req.params.commentid;
+    const postId = req.params.postid;
+
+    const commentLikes = await postService.likeComment(postId, commentId, req.userId);
+    if (!commentLikes) {
+        return res.status(404).json({ errors: ['Post not found'] });
     }
+    res.json(commentLikes);
 }
-    
-module.exports = { createPost,updatePost,getPosts,getPost,deletePost,likePost,addComment,deleteComment,checkIfAuth,updateComment,checkIfAuthComment}
+const updateComment = async (req, res) => {
+    const post = await postService.getPostById(req.params.postid);
+    const commentId = req.params.commentid;
+    if (!post) {
+        return res.status(404).json({ errors: ['Post not found'] });
+    }
+    const updateComment = await postService.updateComment(commentId, post, req.body.content);
+    if (!updateComment) {
+        return res.status(500).json({ errors: ['Internal server error'] })
+    }
+    res.json(updateComment)
+}
+const checkIfAuthComment = async (req, res) => {
+    const post = await postService.getPostById(req.params.postid)
+    if (!post) {
+        return res.status(404).json({ errors: ['Post not found'] })
+    }
+    if (req.params.commentname != req.userId) {
+        return res.status(401).json({ errors: ['Unauthorized'] })
+    }
+    res.json(true);
+}
+
+
+
+
+module.exports = { createPost, updatePost, getPosts, getPost, deletePost, likePost, updateImage,
+    addComment, updateComment,deleteComment, checkIfAuth, checkIfAuthComment, likeComment }

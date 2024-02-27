@@ -7,19 +7,6 @@ const createPost = async (postOwnerID, content, img, date, comments, likesID) =>
     const post = new Post({ _id: randomId, postOwnerID, content, img, date, comments, likesID });
     return await post.save();
 };
-const addComment = async (commentOwnerID, content, post) => {
-    const randomId = new mongoose.Types.ObjectId();
-    const date = new Date();
-    const likes = [];
-    const newComment = { _id: randomId,commentOwnerID, content, date, likes};
-
-    await Post.updateOne(
-        { _id: post._id },
-        { $push: { comments: newComment } }
-    );
-    return newComment;
-};
-
 
 const getPostById = async (id) => {
     return await Post.findById(id);
@@ -27,21 +14,6 @@ const getPostById = async (id) => {
 
 const getPosts = async () => {    
     return await Post.find({});
-}
-
-const updatePost = async (post, content) => {
-    if (!post) return null
-    post.content = content
-    await post.save();
-    return post
-}
-const updateComment = async (commentId,post, content) => {
-    if (!post) return null
-    const commentIndex = post.comments.find(comment => comment._id == commentId);
-    if (!commentIndex) return null
-    commentIndex.content = content
-    await post.save();
-    return commentIndex
 }
 const deletePost = async (post) => {
     return await post.deleteOne();
@@ -57,6 +29,56 @@ const likePost = async (postId, userId) => {
     }
     await post.save();
     return post;
+}
+const updatePost = async (post, content) => {
+    if (!post) return null
+    post.content = content
+    await post.save();
+    return post
+}
+const updateImage = async (post, img) => {
+    console.log(post)
+    post.img = img
+    console.log(post)
+    await post.save();
+    return post
+}
+
+
+
+
+const addComment = async (commentOwnerID, content, post) => {
+    const randomId = new mongoose.Types.ObjectId();
+    const date = new Date();
+    const likes = [];
+    const newComment = { _id: randomId,commentOwnerID, content, date, likes};
+
+    await Post.updateOne(
+        { _id: post._id },
+        { $push: { comments: newComment } }
+    );
+    return newComment;
+};
+const updateComment = async (commentId,post, content) => {
+    if (!post) return null
+    const commentIndex = post.comments.find(comment => comment._id == commentId);
+    if (!commentIndex) return null
+    commentIndex.content = content
+    await post.save();
+    return commentIndex
+}
+const likeComment = async (postId, commentId, userId) => {
+    const post = await getPostById(postId)
+    if (!post) return null
+    const comment = post.comments.find(comment => comment._id == commentId)
+    if (!comment) return null
+    if (comment.likes.includes(userId)) {
+        comment.likes = comment.likes.filter(id => id !== userId)
+    } else {
+        comment.likes.push(userId)
+    }
+    await post.save();
+    return comment.likes;
 }
 const getCommentById = async (post, commentId) => {
     if (!post) return null
@@ -87,4 +109,5 @@ const deleteComment = async (postId, commentId, userId) => {
 
 
 
-module.exports = { createPost, getPosts, getPostById, updatePost, likePost, deletePost, addComment,deleteComment ,updateComment}
+module.exports = { createPost, getPosts, getPostById, updatePost, likePost, deletePost, updateImage,
+     addComment,deleteComment ,updateComment,likeComment}
