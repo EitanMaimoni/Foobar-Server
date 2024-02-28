@@ -37,7 +37,21 @@ const getUserID = async (req, res) => {
         res.status(404).json({ message: error.message }); // User not found or other errors
     }
 }
+
 const getInfo = async (req, res) => {
-    res.json(await userService.getInfo(req.userId))
-};
+    try {
+        const userId = req.params.id; 
+        const user = await userService.getInfo(userId);
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
 module.exports = { createUser, authUser, getUserImage, getUsernickname, getUserID, getInfo }
