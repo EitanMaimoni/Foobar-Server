@@ -64,21 +64,20 @@ const getInfo = async (userId) => {
             throw new Error('User not found');
         }
 
-        // Return the required fields
-        return res.json({
+        // Construct the user data object
+        return {
             nickname: user.nick,
             img: user.img,
-            coverImg: user.coverImg
-        });
-
+            coverImg: user.coverImg,
+            nick: user.nick
+        };
     } catch (error) {
         throw new Error(error);
-    }
+    }
 }
 
 const deleteUser = async (userId) => {
     try {
-        console.log("aaaaaaa");
         const user = await User.findOne({ _id: userId });
         if (!user) {
             throw new Error('User not found');

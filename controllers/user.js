@@ -49,8 +49,8 @@ const getInfo = async (req, res) => {
 
         res.json(user);
     } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+        res.status(500).json({ message: error.message });
+    }
 }
 const getPosts = async (req, res) => {
     try {
@@ -68,5 +68,13 @@ const getPosts = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
-module.exports = { createUser, authUser, getUserImage, getUsernickname, getUserID,deleteUser, getInfo,getPosts }
+const deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.id; 
+        await userService.deleteUser(userId);
+        res.json({ message: "User deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+module.exports = { createUser, authUser, getUserImage, getUsernickname, getUserID, deleteUser, getInfo ,getPosts }
