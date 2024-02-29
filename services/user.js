@@ -22,7 +22,8 @@ const authUser = async (username, password) => {
         return {
             id: user._id,
             profilepic: user.img,
-            coverImg: user.coverImg
+            coverImg: user.coverImg,
+            nick: user.nick
         };
     } else {
         // Passwords do not match, return null or false
