@@ -16,9 +16,20 @@ const authUser = async (username, password) => {
         return null;
     }
 
-    // If passwords match, return the user, otherwise return null
-    return password == user.password ? true : false
+    // If passwords match
+    if (password == user.password) {
+        // Return a JSON object with user's _id and coverImg
+        return {
+            id: user._id,
+            profilepic: user.img,
+            coverImg: user.coverImg
+        };
+    } else {
+        // Passwords do not match, return null or false
+        return null;
+    }
 };
+
 const getUserProfileImageByUsername = async (ownerId) => {
     try {
         const user = await User.findOne({ _id: ownerId });
