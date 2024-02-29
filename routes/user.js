@@ -6,6 +6,8 @@ var router = express.Router();
 router.route('/').post(userController.createUser);
 router.route('/login').post(userController.authUser);
 router.route('/getID').post(authenticateToken, userController.getUserID);
+router.route('/:id/posts').get(authenticateToken, userController.getPosts);
 router.route('/:id').post(authenticateToken, userController.getInfo);
+router.route('/:id').delete(authenticateToken, userController.deleteUser);
 
 module.exports = router;
