@@ -113,9 +113,9 @@ const addComment = async (req, res) => {
             return res.status(400).json({ errors: ['Comment content is required'] });
         }
 
-        await postService.addComment(req.userId, commentContent, post);
-        //return the comments
-        res.json(post.comments);
+        const newComments = await postService.addComment(req.userId, commentContent, post);
+        // Return the comments of the updated post
+        return res.json(newComments);
     } catch (error) {
         console.error('Failed to add comment:', error);
         res.status(500).json({ errors: ['Internal server error'] });
