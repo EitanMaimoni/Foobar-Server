@@ -97,7 +97,10 @@ const deletePost = async (req, res) => {
         return res.status(500).json({ errors: ['Internal server error'] });
     }
 }
-
+const getFriendsPosts = async (req, res) => {
+    const posts = await postService.getFriendsPosts(req.userId);
+    res.json(posts);
+}
 
 
 
@@ -175,4 +178,4 @@ const checkIfAuthComment = async (req, res) => {
 
 
 module.exports = { createPost, updatePost, getPosts, getPost, deletePost, likePost, updateImage,
-    addComment, updateComment,deleteComment, checkIfAuth, checkIfAuthComment, likeComment }
+    addComment, updateComment,deleteComment, checkIfAuth, checkIfAuthComment, likeComment, getFriendsPosts}

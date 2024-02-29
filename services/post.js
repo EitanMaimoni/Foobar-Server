@@ -43,7 +43,30 @@ const updateImage = async (post, img) => {
     await post.save();
     return post
 }
+const getFriendsPosts = async (userId) => {
+    const user = await User.findById(userId);
+    const friendPosts = await Post.find({ postOwnerID: { $in: user.friends } })
+                                  .sort({ date: -1 })
+                                  .limit(20);
 
+    const nonFriendPosts = await Post.find({ postOwnerID: { $nin: user.friends } })
+                                     .sort({ date: -1 })
+                                     .limit(5);
+
+    let combinedPosts = [...friendPosts, ...nonFriendPosts];
+    combinedPosts = combinedPosts.sort((a, b) => b.date - a.date);
+
+    const postsWithProfile = await Promise.all(combinedPosts.map(async (post) => {
+        const postOwner = await User.findById(post.postOwnerID);
+        return {
+            ...post.toObject(), // Converts the Mongoose document to a plain JavaScript object
+            profilePic: postOwner.img,
+            nick: postOwner.nick
+        };
+    }));
+
+    return postsWithProfile;
+};
 
 
 
@@ -110,4 +133,4 @@ const deleteComment = async (postId, commentId, userId) => {
 
 
 module.exports = { createPost, getPosts, getPostById, updatePost, likePost, deletePost, updateImage,
-     addComment,deleteComment ,updateComment,likeComment}
+     addComment,deleteComment ,updateComment,likeComment, getFriendsPosts}
