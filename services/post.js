@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const createPost = async (postOwnerID, content, img, date, comments, likesID) => {
     const randomId = new mongoose.Types.ObjectId();
     const post = new Post({ _id: randomId, postOwnerID, content, img, date, comments, likesID });
+    const user = await User.findById(postOwnerID);
+    user.posts.push(randomId);
+    await user.save();
     return await post.save();
 };
 

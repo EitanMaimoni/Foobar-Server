@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Post = require('../models/post')
 const mongoose = require('mongoose');
 
 const createUser = async (username, nick, password, img) => {
@@ -90,13 +91,35 @@ const deleteUser = async (userId) => {
 }
 
 const getPostsByUserId = async (userId) => {
-    const requestedUser = User.findById(userId);
-     await requestedUser.posts.sort({ date: -1 });
+    try {
+        // Find the user by their ID
+        const requestedUser = await User.findById(userId);
+        if (!requestedUser) return { error: 'User not found' };
+
+        let postsWithProfile = [];
+        for (let postId of requestedUser.posts) {
+            const post = await Post.findOne({ _id: postId });
+            if (post) {
+                const postOwner = await User.findById(post.postOwnerID);
+                postsWithProfile.push({
+                    ...post.toObject(), // Converts the Mongoose document to a plain JavaScript object
+                    profilePic: postOwner.img,
+                    nick: postOwner.nick
+                });
+            }   
+        }
+
+        return { posts: postsWithProfile };
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+        return { error: 'Error fetching posts' };
+    }
 };
 
 const canViewPosts = async (requesterId, userId) => {
-    if (requesterId === userId) return true; // Users can always see their own posts
-
+    if (requesterId == userId){
+        return true; // Users can always see their own posts
+    } 
     const user = await User.findById(userId);
     if (!user) throw new Error('User not found');
 

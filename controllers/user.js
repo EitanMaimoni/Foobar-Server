@@ -52,22 +52,27 @@ const getInfo = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+
 const getPosts = async (req, res) => {
     try {
-        const userId = req.params.id; 
-        const requesterId = req.user.id;
+        const userId = req.userId; 
+        const requesterId = req.params.id;
+
         // Ensure the requester is the user or a friend of the user
         const canViewPosts = await userService.canViewPosts(requesterId, userId);
-
         if (!canViewPosts) {
             return res.status(403).json({ message: "You don't have permission to view these posts." });
         }
 
-        res.json(await postService.getPostsByUserId(userId));
+        return res.json(await userService.getPostsByUserId(requesterId));
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+
 const deleteUser = async (req, res) => {
     try {
         const userId = req.params.id; 
