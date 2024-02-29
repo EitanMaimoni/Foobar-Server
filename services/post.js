@@ -74,21 +74,26 @@ const addComment = async (commentOwnerID, content, post) => {
     const randomId = new mongoose.Types.ObjectId();
     const date = new Date();
     const likes = [];
-    const newComment = { _id: randomId,commentOwnerID, content, date, likes};
+    const newComment = { _id: randomId, commentOwnerID, content, date, likes };
 
     await Post.updateOne(
         { _id: post._id },
         { $push: { comments: newComment } }
     );
-    return newComment;
+
+    // Fetch the updated post to get the latest comments
+    const updatedPost = await Post.findById(post._id);
+    return updatedPost.comments;
 };
+
+
 const updateComment = async (commentId,post, content) => {
     if (!post) return null
     const commentIndex = post.comments.find(comment => comment._id == commentId);
     if (!commentIndex) return null
     commentIndex.content = content
     await post.save();
-    return commentIndex
+    return post.comments
 }
 const likeComment = async (postId, commentId, userId) => {
     const post = await getPostById(postId)

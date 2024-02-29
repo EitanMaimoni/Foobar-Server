@@ -38,7 +38,7 @@
     {
         "_id": "Olivia03User",
         "username": "Olivia03",
-        "nick": "OliviaArtist",
+        "nick": "OliviaChef",
         "password": "password123",
         "img": "../data/pic3.jpg",
         "friends": [
@@ -83,7 +83,7 @@
     {
         "_id": "Mia06User",
         "username": "Mia06",
-        "nick": "MiaChef",
+        "nick": "MiaAdventurer",
         "password": "password123",
         "img": "../data/pic6.jpg",
         "friends": [
@@ -98,7 +98,7 @@
     {
         "_id": "Noah07User",
         "username": "Noah07",
-        "nick": "NoahAdventurer",
+        "nick": "NoahArtist",
         "password": "password123",
         "img": "../data/pic7.jpg",
         "friends": [

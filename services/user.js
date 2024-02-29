@@ -16,9 +16,20 @@ const authUser = async (username, password) => {
         return null;
     }
 
-    // If passwords match, return the user, otherwise return null
-    return password == user.password ? true : false
+    // If passwords match
+    if (password == user.password) {
+        // Return a JSON object with user's _id and coverImg
+        return {
+            id: user._id,
+            profilepic: user.img,
+            coverImg: user.coverImg
+        };
+    } else {
+        // Passwords do not match, return null or false
+        return null;
+    }
 };
+
 const getUserProfileImageByUsername = async (ownerId) => {
     try {
         const user = await User.findOne({ _id: ownerId });
@@ -44,18 +55,12 @@ const getUserNickByUsername = async (ownerId) => {
     }
 }
 
-
 const getInfo = async (userId) => {
     try {
-        // Assuming ownerId is being used for some purpose in your code
-        const ownerId = req.userId;
+        const user = await User.findById(userId).exec();
 
-        // Find the user by their ID
-        const user = await User.findOne({ _id: userId });
-
-        // Check if user exists
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            throw new Error('User not found');
         }
 
         // Return the required fields
@@ -66,7 +71,7 @@ const getInfo = async (userId) => {
         });
 
     } catch (error) {
-        res.status(500).json({ message: error.message }); // Internal Server Error
+        throw new Error(error);
     }
 }
 
