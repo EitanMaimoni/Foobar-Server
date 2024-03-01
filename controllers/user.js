@@ -83,7 +83,7 @@
     const SendFriendShipRequest = async (req, res) => {
         try {
             const userId = req.userId;
-            const friendId = req.params.id;
+            const friendId = req.params.fid;
             await userService.SendFriendShipRequest(userId, friendId);
             res.json({ message: "Friendship request sent successfully" });
         } catch (error) {
@@ -114,7 +114,7 @@
             }
             
             const friendId = req.params.fid;
-            await userService.acceptFriendShipRequest(userId, friendId);
+            await userService.SendFriendShipRequest(userId, friendId);
             res.json({ message: "Friendship request accepted successfully" });
         } catch (error) {
             res.status(500).json({ message: error.message });

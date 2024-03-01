@@ -136,12 +136,19 @@ const SendFriendShipRequest = async (userId, friendId) => {
         if (!friend) {
             throw new Error('Friend not found');
         }
-        user.FriendsRequest.push(friendId);
-        await user.save();
+        // Check if friendId is not already in the FriendsRequest array
+        if (!friend.FriendsRequest.includes(userId)) {
+            friend.FriendsRequest.push(userId);
+            await friend.save();
+        } else {
+            // Optionally, handle the case where the friend request already exists
+            console.log('Friend request already sent');
+        }
     } catch (error) {
         throw error;
     }
 }
+
 const getFriends = async (userId) => {
     try {
         const user = await User.findById(userId);
