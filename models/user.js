@@ -35,6 +35,10 @@ const User = new Schema({
     posts: {
         type: [String],
         required: false
+    },
+    FriendsRequest: {
+        type: [String],
+        required: false
     }
 });
 

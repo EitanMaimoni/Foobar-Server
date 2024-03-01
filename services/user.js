@@ -74,7 +74,7 @@ const getInfo = async (userId) => {
         };
     } catch (error) {
         throw new Error(error);
-    }
+    }
 }
 
 const deleteUser = async (userId) => {
@@ -106,7 +106,7 @@ const getPostsByUserId = async (userId) => {
                     profilePic: postOwner.img,
                     nick: postOwner.nick
                 });
-            }   
+            }
         }
 
         return { posts: postsWithProfile };
@@ -117,14 +117,46 @@ const getPostsByUserId = async (userId) => {
 };
 
 const canViewPosts = async (requesterId, userId) => {
-    if (requesterId == userId){
+    if (requesterId == userId) {
         return true; // Users can always see their own posts
-    } 
+    }
     const user = await User.findById(userId);
     if (!user) throw new Error('User not found');
 
     // Assuming user.friends is an array of friend IDs
     return user.friends.includes(requesterId);
 };
+const SendFriendShipRequest = async (userId, friendId) => {
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        const friend = await User.findById(friendId);
+        if (!friend) {
+            throw new Error('Friend not found');
+        }
+        user.FriendsRequest.push(friendId);
+        await user.save();
+    } catch (error) {
+        throw error;
+    }
+}
+const getFriends = async (userId) => {
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        const friends = await User.find({ _id: { $in: user.friends } });
+        return friends;
+    } catch (error) {
+        throw error;
+    }
+}
 
-module.exports = { createUser, authUser, getUserProfileImageByUsername, getUserNickByUsername, getInfo, deleteUser,canViewPosts,getPostsByUserId }
+
+module.exports = {
+    createUser, authUser, getUserProfileImageByUsername, getUserNickByUsername, getInfo, deleteUser,
+    canViewPosts, getPostsByUserId, SendFriendShipRequest ,getFriends
+}
