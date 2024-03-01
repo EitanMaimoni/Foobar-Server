@@ -102,7 +102,7 @@ const getPostsByUserId = async (userId) => {
             if (post) {
                 const postOwner = await User.findById(post.postOwnerID);
                 postsWithProfile.push({
-                    ...post.toObject(), // Converts the Mongoose document to a plain JavaScript object
+                    ...post.toObject(), 
                     profilePic: postOwner.img,
                     nick: postOwner.nick
                 });
@@ -151,19 +151,113 @@ const SendFriendShipRequest = async (userId, friendId) => {
 
 const getFriends = async (userId) => {
     try {
+        // Find the user and check if they exist
         const user = await User.findById(userId);
-        if (!user) {
-            throw new Error('User not found');
+        if (!user) throw new Error('User not found');
+
+        // Initialize an array to hold friends' details
+        let friendsDetails = [];
+
+        // Loop through each friend ID to find their details
+        for (const friendId of user.friends) {
+            const friend = await User.findById(friendId, 'nick img'); 
+            if (friend) {
+                friendsDetails.push({id:friend._id, nick: friend.nick, img: friend.img });
+            }
         }
-        const friends = await User.find({ _id: { $in: user.friends } });
-        return friends;
+
+        return friendsDetails;
     } catch (error) {
+        console.error('Error fetching friends details:', error);
         throw error;
     }
 }
 
+const getFriendsRequest = async (userId) => {
+    try {
+        // Find the user and check if they exist
+        const user = await User.findById(userId);
 
+        if (!user) throw new Error('User not found');
+
+        let friendsRequestDetails = [];
+        for (const friendId of user.FriendsRequest) {
+            const friend = await User.findById(friendId, 'nick img');
+            if (friend) {
+                friendsRequestDetails.push({ id: friend._id, nick: friend.nick, img: friend.img });
+            }
+        }
+        return friendsRequestDetails;
+    }catch (error) {
+        console.error('Error fetching friends request details:', error);
+        throw error;
+    }
+}
+        
+const acceptReq = async (userId, friendId) => {
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        const friend = await User.findById(friendId);
+        if (!friend) {
+            throw new Error('Friend not found');
+        }
+        // add to friends list
+        user.friends.push(friendId);
+        await user.save();
+        // remove from friends request list
+        user.FriendsRequest = user.FriendsRequest.filter(id => id != friendId);
+        await user.save();
+        // add to friends list
+        friend.friends.push(userId);
+        await friend.save();
+    }catch (error) {
+        throw error;
+    }
+}
+const deleteFriend = async (userId, friendId) => {
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        const friend = await User.findById(friendId);
+        if (!friend) {
+            throw new Error('Friend not found');
+        }
+        // remove from friends list
+        user.friends = user.friends.filter(id => id != friendId);
+        await user.save();
+        // remove from friends list
+        friend.friends = friend.friends.filter(id => id != userId);
+        await friend.save();
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
+const deleteRequest = async (userId, friendId) => {
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        const friend = await User.findById(friendId);
+        if (!friend) {
+            throw new Error('Friend not found');
+        }
+        // remove from friends request list
+        user.FriendsRequest = user.FriendsRequest.filter(id => id != friendId);
+        await user.save();
+    }
+    catch (error) {
+        throw error;
+    }
+}
 module.exports = {
     createUser, authUser, getUserProfileImageByUsername, getUserNickByUsername, getInfo, deleteUser,
-    canViewPosts, getPostsByUserId, SendFriendShipRequest ,getFriends
+    canViewPosts, getPostsByUserId, SendFriendShipRequest ,getFriends , getFriendsRequest , acceptReq ,deleteFriend , deleteRequest
 }

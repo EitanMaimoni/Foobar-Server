@@ -57,7 +57,6 @@
         try {
             const userId = req.userId;
             const requesterId = req.params.id;
-
             // Ensure the requester is the user or a friend of the user
             const canViewPosts = await userService.canViewPosts(requesterId, userId);
             if (!canViewPosts) {
@@ -83,7 +82,7 @@
     const SendFriendShipRequest = async (req, res) => {
         try {
             const userId = req.userId;
-            const friendId = req.params.fid;
+            const friendId = req.params.id;
             await userService.SendFriendShipRequest(userId, friendId);
             res.json({ message: "Friendship request sent successfully" });
         } catch (error) {
@@ -92,19 +91,32 @@
     }
 
 
-
-
-
-
     const getFriends = async (req, res) => {
         try {
             const userId = req.userId;
+            const requesterId = req.params.id;
+            // Ensure the requester is the user or a friend of the user
+            const canViewPosts = await userService.canViewPosts(requesterId, userId);
+            if (!canViewPosts) {
+                return res.status(403).json({ message: "You don't have permission to view these posts." });
+            }
             const friends = await userService.getFriends(userId);
             res.json({ friends });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     }
+
+    const getFriendsRequest = async (req, res) => {
+        try {
+            const userId = req.userId;
+            const friendsRequest = await userService.getFriendsRequest(userId);
+            res.json({ friendsRequest });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+    
     const acceptFriendShipRequest = async (req, res) => {
         try {
             const userId = req.userId;
@@ -114,12 +126,37 @@
             }
             
             const friendId = req.params.fid;
-            await userService.SendFriendShipRequest(userId, friendId);
+            await userService.acceptReq(userId, friendId);
             res.json({ message: "Friendship request accepted successfully" });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+    const deleteFriend = async (req, res) => {
+        try {
+            const userId = req.userId;
+            const userIdFromParams = req.params.id;
+            if(userId != userIdFromParams) {
+                return res.status(403).json({ message: "You don't have permission to delete this friend." });
+            }
+            const friendId = req.params.fid;
+            await userService.deleteFriend(userId, friendId);
+            res.json({ message: "Friend deleted successfully" });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+
+    const deleteRequest = async (req, res) => {
+        try {
+            const userId = req.userId;
+            const friendId = req.params.id;
+            await userService.deleteRequest(userId, friendId);
+            res.json({ message: "Friendship request deleted successfully" });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     }
 
     module.exports = { createUser, authUser, getUserImage, getUsernickname, getUserID, deleteUser, 
-        getInfo ,getPosts,SendFriendShipRequest , getFriends ,acceptFriendShipRequest }
+        getInfo ,getPosts,SendFriendShipRequest , getFriends ,acceptFriendShipRequest , getFriendsRequest , deleteFriend ,deleteRequest}
