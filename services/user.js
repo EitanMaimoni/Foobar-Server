@@ -154,7 +154,7 @@ const getFriends = async (userId) => {
         // Find the user and check if they exist
         const user = await User.findById(userId);
         if (!user) throw new Error('User not found');
-
+        console.log(user);
         // Initialize an array to hold friends' details
         let friendsDetails = [];
 
@@ -165,7 +165,6 @@ const getFriends = async (userId) => {
                 friendsDetails.push({id:friend._id, nick: friend.nick, img: friend.img });
             }
         }
-
         return friendsDetails;
     } catch (error) {
         console.error('Error fetching friends details:', error);
@@ -257,7 +256,23 @@ const deleteRequest = async (userId, friendId) => {
         throw error;
     }
 }
+const updateUser = async (id, username, nick, password, img) => {
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        user.username = username;
+        user.nick = nick;
+        user.password = password;
+        user.img = img;
+        await user.save();
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     createUser, authUser, getUserProfileImageByUsername, getUserNickByUsername, getInfo, deleteUser,
-    canViewPosts, getPostsByUserId, SendFriendShipRequest ,getFriends , getFriendsRequest , acceptReq ,deleteFriend , deleteRequest
+    canViewPosts, getPostsByUserId, SendFriendShipRequest ,getFriends , getFriendsRequest , acceptReq ,deleteFriend , deleteRequest , updateUser
 }

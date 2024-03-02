@@ -1,8 +1,19 @@
     const userService = require('../services/user');
 
     const createUser = async (req, res) => {
-        
         res.json(await userService.createUser(req.body.username, req.body.nick, req.body.password, req.body.img))
+    };
+    const updateUser = async (req, res) => {
+        try{
+            const userIdFromParams = req.params.id;
+            const userId = req.userId;
+            if(userId != userIdFromParams) {
+                return res.status(403).json({ message: "You don't have permission to update this user." });
+            }
+            res.json(await userService.updateUser(userId, req.body.username, req.body.nick, req.body.password, req.body.img))
+        }catch(error){
+            res.status(404).json({ message: error.message });
+        }
     };
 
     const authUser = async (req, res) => {
@@ -52,6 +63,7 @@
             res.status(500).json({ message: error.message });
         }
     }
+   
 
     const getPosts = async (req, res) => {
         try {
@@ -100,7 +112,7 @@
             if (!canViewPosts) {
                 return res.status(403).json({ message: "You don't have permission to view these posts." });
             }
-            const friends = await userService.getFriends(userId);
+            const friends = await userService.getFriends(requesterId);
             res.json({ friends });
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -157,6 +169,7 @@
             res.status(500).json({ message: error.message });
         }
     }
-
+        
     module.exports = { createUser, authUser, getUserImage, getUsernickname, getUserID, deleteUser, 
-        getInfo ,getPosts,SendFriendShipRequest , getFriends ,acceptFriendShipRequest , getFriendsRequest , deleteFriend ,deleteRequest}
+        getInfo ,getPosts,SendFriendShipRequest , getFriends ,acceptFriendShipRequest , 
+        getFriendsRequest , deleteFriend ,deleteRequest , updateUser}
