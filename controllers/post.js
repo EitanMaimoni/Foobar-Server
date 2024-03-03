@@ -16,7 +16,6 @@ const createPost = async (req, res) => {
 const updateImage = async (req, res) => {
     const post = await postService.getPostById(req.params.id)
     const img = req.body.image;
-    console.log(req.body.image)
     if(post.postOwnerID != req.userId){
         return res.status(401).json({ errors: ['Unauthorized'] })
     }

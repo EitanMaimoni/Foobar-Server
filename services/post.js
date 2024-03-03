@@ -16,7 +16,13 @@ const getPostById = async (id) => {
 }
 
 const getPosts = async () => {    
-    return await Post.find({});
+     const posts = await Post.find({});
+     // for each comment in the post, get the user's nickname and profile picture
+     for (let post of posts) {
+         const postOwner = await User.findById(post.postOwnerID);
+         post.profilePic = postOwner.img;
+         post.nick = postOwner.nick;
+     }
 }
 const deletePost = async (post) => {
     return await post.deleteOne();
@@ -44,7 +50,6 @@ const updatePost = async (req, res) => {
     }
     const content = req.body.content;
     const img = req.body.image;
-    console.log(content)
     post.img = img
     post.content = content
     
@@ -52,9 +57,7 @@ const updatePost = async (req, res) => {
     return post
 }
 const updateImage = async (post, img) => {
-    console.log(post)
     post.img = img
-    console.log(post)
     await post.save();
     return post
 }

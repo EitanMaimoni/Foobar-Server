@@ -11,7 +11,7 @@ router.route('/:id/posts').get(authenticateToken, userController.getPosts)
 .post(authenticateToken, postController.createPost);
 router.route('/req').get(authenticateToken, userController.getFriendsRequest);
 router.route('/:id').get(authenticateToken, userController.getInfo);    
-router.route('/:id').post(authenticateToken, userController.updateUser);
+router.route('/:id').put(authenticateToken, userController.updateUser);
 
 router.route('/:id/posts/:pid').delete(authenticateToken, postController.deletePost)
 .patch(authenticateToken, postController.updatePost);

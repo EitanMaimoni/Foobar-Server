@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 
 const createUser = async (username, nick, password, img) => {
     const randomId = new mongoose.Types.ObjectId();
+    // Check if the username is already taken
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+        throw new Error('Username already taken');
+    }
     const user = new User({ _id: randomId, username, nick, password, img })
     return await user.save();
 }
@@ -102,7 +107,7 @@ const getPostsByUserId = async (userId) => {
             if (post) {
                 const postOwner = await User.findById(post.postOwnerID);
                 postsWithProfile.push({
-                    ...post.toObject(), 
+                    ...post.toObject(),
                     profilePic: postOwner.img,
                     nick: postOwner.nick
                 });
@@ -154,15 +159,14 @@ const getFriends = async (userId) => {
         // Find the user and check if they exist
         const user = await User.findById(userId);
         if (!user) throw new Error('User not found');
-        console.log(user);
         // Initialize an array to hold friends' details
         let friendsDetails = [];
 
         // Loop through each friend ID to find their details
         for (const friendId of user.friends) {
-            const friend = await User.findById(friendId, 'nick img'); 
+            const friend = await User.findById(friendId, 'nick img');
             if (friend) {
-                friendsDetails.push({id:friend._id, nick: friend.nick, img: friend.img });
+                friendsDetails.push({ id: friend._id, nick: friend.nick, img: friend.img });
             }
         }
         return friendsDetails;
@@ -187,12 +191,12 @@ const getFriendsRequest = async (userId) => {
             }
         }
         return friendsRequestDetails;
-    }catch (error) {
+    } catch (error) {
         console.error('Error fetching friends request details:', error);
         throw error;
     }
 }
-        
+
 const acceptReq = async (userId, friendId) => {
     try {
         const user = await User.findById(userId);
@@ -212,7 +216,7 @@ const acceptReq = async (userId, friendId) => {
         // add to friends list
         friend.friends.push(userId);
         await friend.save();
-    }catch (error) {
+    } catch (error) {
         throw error;
     }
 }
@@ -274,5 +278,5 @@ const updateUser = async (id, username, nick, password, img) => {
 
 module.exports = {
     createUser, authUser, getUserProfileImageByUsername, getUserNickByUsername, getInfo, deleteUser,
-    canViewPosts, getPostsByUserId, SendFriendShipRequest ,getFriends , getFriendsRequest , acceptReq ,deleteFriend , deleteRequest , updateUser
+    canViewPosts, getPostsByUserId, SendFriendShipRequest, getFriends, getFriendsRequest, acceptReq, deleteFriend, deleteRequest, updateUser
 }
