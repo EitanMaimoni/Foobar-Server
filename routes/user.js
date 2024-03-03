@@ -13,7 +13,8 @@ router.route('/req').get(authenticateToken, userController.getFriendsRequest);
 router.route('/:id').get(authenticateToken, userController.getInfo);    
 router.route('/:id').post(authenticateToken, userController.updateUser);
 
-router.route('/:id/posts/:pid').delete(authenticateToken, postController.deletePost);
+router.route('/:id/posts/:pid').delete(authenticateToken, postController.deletePost)
+.patch(authenticateToken, postController.updatePost);
 router.route('/:id').delete(authenticateToken, userController.deleteUser);
 router.route('/:id/friends').post(authenticateToken, userController.SendFriendShipRequest)
 .get(authenticateToken, userController.getFriends).delete(authenticateToken, userController.deleteRequest);

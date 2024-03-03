@@ -14,7 +14,7 @@ router.route('/:id').get(postController.getPost)
         .patch(postController.updatePost)
 router.route('/uploadImage/:id').patch(authenticateToken, postController.updateImage)
 router.route('/edit/:id').get(authenticateToken, postController.checkIfAuth)
-router.route('/edit/:id').patch(authenticateToken, postController.updatePost)
+
 router.route('/comment/like/:postid/:commentid').put(authenticateToken, postController.likeComment)
 router.route('/comment/edit/:postid/:commentname').get(authenticateToken, postController.checkIfAuthComment)
 router.route('/comment/edit/:postid/:commentid').patch(authenticateToken, postController.updateComment)

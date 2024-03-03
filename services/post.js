@@ -33,9 +33,21 @@ const likePost = async (postId, userId) => {
     await post.save();
     return post;
 }
-const updatePost = async (post, content) => {
-    if (!post) return null
+const updatePost = async (req, res) => {
+    const post = await Post.findById(req.params.pid)
+    if (!post) {
+        return res.status(404).json({ errors: ['Post not found'] })
+    }
+    const user = await User.findById(req.userId)
+    if(!user){
+        return res.status(404).json({ errors: ['User not found'] })
+    }
+    const content = req.body.content;
+    const img = req.body.image;
+    console.log(content)
+    post.img = img
     post.content = content
+    
     await post.save();
     return post
 }
@@ -71,8 +83,6 @@ const getFriendsPosts = async (userId) => {
     return postsWithProfile;
 };
 
-
-
 const addComment = async (commentOwnerID, content, post) => {
     const randomId = new mongoose.Types.ObjectId();
     const date = new Date();
@@ -88,7 +98,6 @@ const addComment = async (commentOwnerID, content, post) => {
     const updatedPost = await Post.findById(post._id);
     return updatedPost.comments;
 };
-
 
 const updateComment = async (commentId,post, content) => {
     if (!post) return null
@@ -137,8 +146,19 @@ const deleteComment = async (postId, commentId, userId) => {
         return { status: 500, error: 'Internal server error' };
     }
 };
-
-
-
+const checkIfAuth = async (req, res) => {
+    const user = await User.findById(req.userId);
+    if (!user) {
+        return res.status(404).json({ errors: ['User not found'] });
+    }
+    const post = await Post.findById(req.params.id)
+    if (!post) {
+        return res.status(404).json({ errors: ['Post not found'] })
+    }
+    if (post.postOwnerID != req.userId) {
+        return res.status(401).json({ errors: ['Unauthorized'] })
+    }
+    return (res.json(post))
+}
 module.exports = { createPost, getPosts, getPostById, updatePost, likePost, deletePost, updateImage,
-     addComment,deleteComment ,updateComment,likeComment, getFriendsPosts}
+     addComment,deleteComment ,updateComment,likeComment, getFriendsPosts ,checkIfAuth}
