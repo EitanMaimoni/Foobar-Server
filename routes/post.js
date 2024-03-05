@@ -6,8 +6,8 @@ const express = require('express');
 var router = express.Router();
 
 router.route('/').get(authenticateToken,postController.getFriendsPosts)
-router.route('/nickname/:id').get(userController.getUsernickname)
-router.route('/profile/:id').get(userController.getUserImage)
+router.route('/nickname/:id').get(authenticateToken, userController.getUsernickname)
+router.route('/profile/:id').get(authenticateToken, userController.getUserImage)
 router.route('/get').get(authenticateToken, postController.getPosts);
 router.route('/like/:id').put(authenticateToken, postController.likePost)
 router.route('/:id').get(postController.getPost)
