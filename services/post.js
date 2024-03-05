@@ -90,7 +90,10 @@ const addComment = async (commentOwnerID, content, post) => {
     const randomId = new mongoose.Types.ObjectId();
     const date = new Date();
     const likes = [];
-    const newComment = { _id: randomId, commentOwnerID, content, date, likes };
+    const owner = await User.findById(commentOwnerID)
+    const ownerNick = owner.nick;
+    const ownerPic = owner.img;
+    const newComment = { _id: randomId,nickname: ownerNick,profilePic:ownerPic , commentOwnerID, content, date, likes };
 
     await Post.updateOne(
         { _id: post._id },

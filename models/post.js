@@ -30,6 +30,14 @@ const Post = new Schema({
                 type: String,
                 required: true
             },
+            nickname:{
+                type: String,
+                required: false
+            },
+            profilePic:{
+                type: String,
+                required: false
+            },
             content: {
                 type: String,
                 required: false

@@ -19,14 +19,20 @@ const imageToBase64 = (imagePath) => {
 
 const seedPosts = async () => {
     try {
-        const collection = db.collection('posts'); 
+        const collection = db.collection('posts');
         const postCount = await collection.countDocuments();
 
         if (postCount === 0) {
             const postsWithCustomId = postsData.map((post) => {
+                const updatedComments = post.comments.map((comment) => ({
+                    ...comment,
+                    profilePic: comment.profilePic ? imageToBase64(comment.profilePic) : null
+                }));
+
                 return {
                     ...post,
-                    img: post.img ? imageToBase64(post.img) : null
+                    img: post.img ? imageToBase64(post.img) : null,
+                    comments: updatedComments
                 };
             });
 
