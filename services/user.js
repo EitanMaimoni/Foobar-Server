@@ -230,6 +230,11 @@ const deleteFriend = async (userId, friendId) => {
         if (!friend) {
             throw new Error('Friend not found');
         }
+        //check if the friend is in the friends request list
+        if (user.FriendsRequest.includes(friendId)) {
+            await deleteRequest(user, friendId);
+            return;
+        }
         // remove from friends list
         user.friends = user.friends.filter(id => id != friendId);
         await user.save();
@@ -242,16 +247,8 @@ const deleteFriend = async (userId, friendId) => {
     }
 }
 
-const deleteRequest = async (userId, friendId) => {
+const deleteRequest = async (user, friendId) => {
     try {
-        const user = await User.findById(userId);
-        if (!user) {
-            throw new Error('User not found');
-        }
-        const friend = await User.findById(friendId);
-        if (!friend) {
-            throw new Error('Friend not found');
-        }
         // remove from friends request list
         user.FriendsRequest = user.FriendsRequest.filter(id => id != friendId);
         await user.save();
@@ -260,11 +257,17 @@ const deleteRequest = async (userId, friendId) => {
         throw error;
     }
 }
+
 const updateUser = async (id, username, nick, password, img) => {
     try {
         const user = await User.findById(id);
         if (!user) {
             throw new Error('User not found');
+        }
+        const existingUser = await User.findOne({ username: username });
+        // Ensure that the existing user is not the same as the current user
+        if (existingUser && existingUser._id.toString() !== id.toString()) {
+            throw new Error('Username is already taken');
         }
         user.username = username;
         user.nick = nick;
