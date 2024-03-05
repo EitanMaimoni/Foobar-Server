@@ -13,4 +13,9 @@ const createToken = async (req, res) => {
     }
 };
 
-module.exports = { createToken };
+const tokenValidation = async (req, res) => {
+    //if we get here, we passed the authenticateToken in middleware
+    res.json({ isValid: true });
+};
+
+module.exports = { createToken, tokenValidation };

@@ -21,7 +21,7 @@ const updateUser = async (req, res) => {
         const userId = req.userId;
         if (userId != userIdFromParams) {
             return res.status(403).json({ message: "You don't have permission to update this user." });
-        }
+        }   
         res.json(await userService.updateUser(userId, req.body.username, req.body.nick, req.body.password, req.body.img))
     } catch (error) {
         res.status(404).json({ message: error.message });
