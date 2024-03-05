@@ -70,14 +70,14 @@ const checkIfAuth = async (req, res) => {
 
 const deletePost = async (req, res) => {
     try {
-        const post = await postService.getPostById(req.params.id);
+        const post = await postService.getPostById(req.params.pid);
         if (!post) {
             return res.status(404).json({ errors: ['Post not found'] });
         }
-
         if (post.postOwnerID != req.userId) {
             return res.status(401).json({ errors: ['Unauthorized'] });
         }
+        
         await postService.deletePost(post);
         return res.json({ message: 'Post deleted successfully' });
     } catch (error) {
