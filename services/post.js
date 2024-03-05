@@ -104,7 +104,6 @@ const addComment = async (commentOwnerID, content, post) => {
     const updatedPost = await Post.findById(post._id);
     return updatedPost.comments;
 };
-
 const updateComment = async (commentId,post, content) => {
     if (!post) return null
     const commentIndex = post.comments.find(comment => comment._id == commentId);
