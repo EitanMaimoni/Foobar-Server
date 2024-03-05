@@ -146,8 +146,7 @@ const SendFriendShipRequest = async (userId, friendId) => {
             friend.FriendsRequest.push(userId);
             await friend.save();
         } else {
-            // Optionally, handle the case where the friend request already exists
-            console.log('Friend request already sent');
+            return res.status(401).json({ errors: ['Friend request already sent'] })
         }
     } catch (error) {
         throw error;

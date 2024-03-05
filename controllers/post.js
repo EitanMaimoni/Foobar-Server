@@ -141,6 +141,7 @@ const likeComment = async (req, res) => {
 }
 const updateComment = async (req, res) => {
     const post = await postService.getPostById(req.params.postid);
+    
     const commentId = req.params.commentid;
     if (!post) {
         return res.status(404).json({ errors: ['Post not found'] });
@@ -156,7 +157,8 @@ const checkIfAuthComment = async (req, res) => {
     if (!post) {
         return res.status(404).json({ errors: ['Post not found'] })
     }
-    if (req.params.commentname != req.userId) {
+    const comment = post.comments.find(comment => comment._id == req.params.commentname);
+    if (comment.commentOwnerID != req.userId) {
         return res.status(401).json({ errors: ['Unauthorized'] })
     }
     res.json(true);
