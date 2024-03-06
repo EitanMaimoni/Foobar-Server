@@ -3,6 +3,9 @@ const User = require('../models/user')
 const mongoose = require('mongoose');
 
 const createPost = async (postOwnerID, content, img, date, comments, likesID) => {
+    if(!img.startsWith("data")) {
+        img = `data:image/png;base64,${img}`
+    }
     const randomId = new mongoose.Types.ObjectId();
     const post = new Post({ _id: randomId, postOwnerID, content, img, date, comments, likesID });
     const user = await User.findById(postOwnerID);

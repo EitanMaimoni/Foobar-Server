@@ -4,10 +4,6 @@ const createPost = async (req, res) => {
     // Use the userId from the request, set by the middleware
     const postOwnerID = req.userId;
     const { content, img, date, comments, likesID } = req.body;
-    
-    if(!img.startsWith("data")) {
-        img = `data:image/png;base64,${img}`
-    }
 
     try {
         const post = await postService.createPost(postOwnerID, content, img, date, comments, likesID);
