@@ -55,10 +55,11 @@ const updatePost = async (req, res) => {
     const img = req.body.image;
 
     if(!img.startsWith("data")) {
-        img = `data:image/png;base64,${img}`
+        post.img = `data:image/png;base64,${img}`;
+    } else {
+        post.img = img;
     }
     
-    post.img = img
     post.content = content
     
     await post.save();
