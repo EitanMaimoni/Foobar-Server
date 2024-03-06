@@ -3,7 +3,7 @@ const Post = require('../models/post')
 const mongoose = require('mongoose');
 
 const createUser = async (username, nick, password, img) => {
-    if(!img.startsWith("data")) {
+    if (img && !img.startsWith("data")) {
         img = `data:image/png;base64,${img}`
     }
     const randomId = new mongoose.Types.ObjectId();
@@ -262,7 +262,7 @@ const deleteRequest = async (user, friendId) => {
 
 const updateUser = async (id, username, nick, password, img) => {
     try {
-        if(!img.startsWith("data")) {
+        if (img && !img.startsWith("data")) {
             img = `data:image/png;base64,${img}`
         }
         const user = await User.findById(id);

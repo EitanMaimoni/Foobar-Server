@@ -3,7 +3,7 @@ const User = require('../models/user')
 const mongoose = require('mongoose');
 
 const createPost = async (postOwnerID, content, img, date, comments, likesID) => {
-    if(!img.startsWith("data")) {
+    if (img && !img.startsWith("data")) {
         img = `data:image/png;base64,${img}`
     }
     const randomId = new mongoose.Types.ObjectId();
@@ -54,7 +54,7 @@ const updatePost = async (req, res) => {
     const content = req.body.content;
     const img = req.body.image;
 
-    if(!img.startsWith("data")) {
+    if (img && !img.startsWith("data")) {
         post.img = `data:image/png;base64,${img}`;
     } else {
         post.img = img;
