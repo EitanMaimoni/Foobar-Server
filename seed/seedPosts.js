@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const postsData = require('../data/postsList.json');
 const fs = require('fs');
 const path = require('path');
-
+//this file is used to seed the database with the postsList.json file
 // Connect to MongoDB
 const db = mongoose.connection;
-
+// Function to convert an image to Base64
 const imageToBase64 = (imagePath) => {
     try {
         const fullPath = path.join(__dirname, '..', 'data', imagePath);
@@ -16,17 +16,24 @@ const imageToBase64 = (imagePath) => {
         return null;
     }
 };
-
+// Seed the database with posts
 const seedPosts = async () => {
     try {
-        const collection = db.collection('posts'); 
+        // Get the posts collection
+        const collection = db.collection('posts');
         const postCount = await collection.countDocuments();
-
+        // If there are no posts, seed the database
         if (postCount === 0) {
             const postsWithCustomId = postsData.map((post) => {
+                const updatedComments = post.comments.map((comment) => ({
+                    ...comment,
+                    profilePic: comment.profilePic ? imageToBase64(comment.profilePic) : null
+                }));
+
                 return {
                     ...post,
-                    img: post.img ? imageToBase64(post.img) : null
+                    img: post.img ? imageToBase64(post.img) : null,
+                    comments: updatedComments
                 };
             });
 

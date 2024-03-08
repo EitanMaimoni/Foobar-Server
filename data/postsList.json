@@ -9,6 +9,8 @@
             {
                 "_id": "1",
                 "commentOwnerID": "Jackson09User",
+                "nickname": "JacksonMusician",
+                "profilePic": "../data/pic9.jpg",
                 "content": "Jam session with my band was awesome!",
                 "date": "2024-02-03T03:48:16.555973",
                 "likes": [
@@ -18,6 +20,8 @@
             {
                 "_id": "2",
                 "commentOwnerID": "Albert10User",
+                "nickname": "IsabellaTheGreat",
+                "profilePic": "../data/pic10.jpg",
                 "content": "Had a great time hiking this weekend!",
                 "date": "2023-06-17T10:29:42.761398",
                 "likes": [
@@ -41,6 +45,8 @@
             {
                 "_id": "3",
                 "commentOwnerID": "aUser",
+                "nickname": "JamestheExplorer",
+                "profilePic": "../data/pic1.jpg",
                 "content": "Beautiful day for a hike!",
                 "date": "2023-04-23T11:14:14.723498",
                 "likes": [
@@ -73,6 +79,8 @@
             {
                 "_id": "4",
                 "commentOwnerID": "Olivia03User",
+                "nickname": "OliviaChef",
+                "profilePic": "../data/pic3.jpg",
                 "content": "Exploring the city's art scene.",
                 "date": "2023-11-02T08:45:07.392561",
                 "likes": [
@@ -87,13 +95,15 @@
     {
         "_id": "Ava05Post",
         "postOwnerID": "Ava05User",
-        "content": "what an amazing scene!",
+        "content": "What an amazing scene!",
         "img": "../data/pic15.jpg",
         "date": "2023-08-05T22:11:44.736482",
         "comments": [
             {
                 "_id": "5",
                 "commentOwnerID": "Ethan04User",
+                "nickname": "EthanCoder",
+                "profilePic": "../data/pic4.jpg",
                 "content": "Learning a new programming language.",
                 "date": "2024-01-19T17:50:35.210145",
                 "likes": [
@@ -103,6 +113,8 @@
             {
                 "_id": "6",
                 "commentOwnerID": "Sophia08User",
+                "nickname": "SophiaArtist",
+                "profilePic": "../data/pic8.jpg",
                 "content": "Enjoying the new art exhibit downtown.",
                 "date": "2023-10-07T19:33:58.124856",
                 "likes": [
@@ -124,6 +136,8 @@
             {
                 "_id": "7",
                 "commentOwnerID": "Emma02User",
+                "nickname": "BookwormEmma",
+                "profilePic": "../data/pic2.jpg",
                 "content": "Just finished reading a great book!",
                 "date": "2023-07-15T15:30:20.561234",
                 "likes": [
@@ -145,6 +159,8 @@
             {
                 "_id": "8",
                 "commentOwnerID": "Mia06User",
+                "nickname": "MiaAdventurer",
+                "profilePic": "../data/pic6.jpg",
                 "content": "Cooked a new recipe today!",
                 "date": "2023-05-28T06:05:51.873519",
                 "likes": [
@@ -159,13 +175,15 @@
     {
         "_id": "Sophia08Post",
         "postOwnerID": "Sophia08User",
-        "content": "Enjoying the new scene of this amazing land :)",
+        "content": "Enjoying the scenes of this amazing land :)",
         "img": "../data/pic18.jpg",
         "date": "2023-10-07T19:33:58.124856",
         "comments": [
             {
                 "_id": "9",
                 "commentOwnerID": "Ava05User",
+                "nickname": "AvaGardener",
+                "profilePic": "../data/pic5.jpg",
                 "content": "Gardening is so relaxing.",
                 "date": "2023-08-05T22:11:44.736482",
                 "likes": [
@@ -187,6 +205,8 @@
             {
                 "_id": "10",
                 "commentOwnerID": "Noah07User",
+                "nickname": "NoahArtist",
+                "profilePic": "../data/pic7.jpg",
                 "content": "Went on an amazing adventure.",
                 "date": "2023-09-12T13:21:30.489731",
                 "likes": [

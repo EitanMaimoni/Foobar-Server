@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+// Define the schema for the Post model
 const Schema = mongoose.Schema;
 
 const Post = new Schema({
@@ -29,6 +29,14 @@ const Post = new Schema({
             }, commentOwnerID: {
                 type: String,
                 required: true
+            },
+            nickname:{
+                type: String,
+                required: false
+            },
+            profilePic:{
+                type: String,
+                required: false
             },
             content: {
                 type: String,
