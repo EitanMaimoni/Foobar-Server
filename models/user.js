@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const ThemeImg = require('../data/themeImg')
 
 const Schema = mongoose.Schema;
-
+// Define the schema for the User model
 const User = new Schema({
     _id:{
         type: String,

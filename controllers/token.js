@@ -1,7 +1,8 @@
 const tokenService = require('../services/token');
-
+// Create a new token
 const createToken = async (req, res) => {
     try {
+        // Create a token with the provided username and password
         const token = await tokenService.createToken(req.body.username, req.body.password);
         res.json({ token });
     } catch (error) {

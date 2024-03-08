@@ -1,7 +1,9 @@
+// Import required controllers and middleware
 const authenticateToken = require('../middleware/authenticateToken');
 const postController = require('../controllers/post');
 const userController = require('../controllers/user');
 
+// Import express and create a router instance
 const express = require('express');
 var router = express.Router();
 
