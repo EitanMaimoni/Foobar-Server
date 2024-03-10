@@ -99,11 +99,15 @@ const deleteUser = async (userId) => {
         if (!user) {
             throw new Error('User not found');
         }
+        // Delete the user's posts
+        user.posts.forEach(async (postId) => {
+            await Post.deleteOne({ _id: postId});
+        });
         // Delete the user
         await User.deleteOne({ _id: userId });
     } catch (error) {
-        throw error;
-    }
+        throw error;
+    }
 }
 
 const getPostsByUserId = async (userId) => {
