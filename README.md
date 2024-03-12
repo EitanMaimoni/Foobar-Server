@@ -6,7 +6,6 @@ How to Run It:
 To run both the server and client on your computer:
 
 Clone the repository.
-Go to "Production" branch.
 Install dependencies using 'npm install'.
 Simply use 'npm start' to run both server and client, as the client build is on the server.
 Access the application at http://localhost:12345.
