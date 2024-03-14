@@ -3,6 +3,7 @@ Facebook Server Project Overview:
 We established the server environment initially by installing dependencies and writing basic code. Then, we integrated the server with the client interface, focusing on API endpoint development and client-side logic, ensuring seamless data flow between them.
 
 How to Run It:
+When cloning the repository for both the Android and web applications to work with the server, ensure you use the 'production' branch, not the 'main' branch.
 To run both the server and client on your computer:
 
 Clone the repository.
