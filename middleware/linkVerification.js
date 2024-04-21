@@ -22,11 +22,11 @@ function linksVerification(req, res, next) {
 
     links.forEach(link => {
         const client = new net.Socket();
-        const message = 2 ${link};
+        const message = `2 ${link}`;
 
         client.connect(port_no, ip_address, () => {
-            console.log(Connected to C++ server to check link: ${link});
-            console.log(Sending "${message}" to server);
+            console.log("Connected to C++ server to check link: ${link}");
+            console.log(`Sending "${message}" to server`);
             client.write(message);
             client.end();  // Close the sending side of the socket
         });
@@ -38,7 +38,7 @@ function linksVerification(req, res, next) {
         });
 
         client.on('end', () => {
-            console.log(Server has finished sending data for link: ${link});
+            console.log(`server has finished sending data for link: ${link}`);
         });
 
         client.on('close', () => {
