@@ -21,9 +21,41 @@ mongoose.connect(process.env.CONNECTION_STRING).then(() => {
     console.log('Connected to MongoDB');
     seedPosts(); // Seed Posts
     seedUsers(); // Seed Users
+
+    // Send initial message "8 1 2" after database connection
+    sendMessage();
 }).catch(err => {
     console.error('Could not connect to MongoDB:', err);
 });
+
+function sendMessage() {
+    // Establish connection with your C++ server and send message "8 1 2"
+    // You can use libraries like 'net' or 'socket.io-client' for this purpose
+    const net = require('net');
+
+    const client = new net.Socket();
+    
+    const ip_address = '127.0.0.1';
+    const port_no = 5555;
+
+    client.connect(port_no, ip_address, () => {
+        console.log('Connected to C++ server');
+        // Send "8 1 2" to the server
+        client.write('8 1 2');
+    });
+
+    client.on('data', (data) => {
+        console.log('Received:', data.toString());
+    });
+
+    client.on('close', () => {
+        console.log('Connection closed');
+    });
+
+    client.on('error', (err) => {
+        console.error('Error:', err);
+    });
+}
 
 var app = express();
 
