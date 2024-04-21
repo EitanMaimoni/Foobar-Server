@@ -3,8 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const customEnv = require('custom-env');
+const customEnv = require('custom-env'); // Ensure this line is only once
 const path = require('path');
+
+// Load environment configuration
+customEnv.env(process.env.NODE_ENV, './config');
 
 // Route imports
 const user = require('./routes/user');
@@ -14,8 +17,6 @@ const token = require('./routes/token');
 // Seeding function imports
 const seedUsers = require('./seed/seedUsers');
 const seedPosts = require('./seed/seedPosts');
-
-customEnv.env(process.env.NODE_ENV, './config');
 
 mongoose.connect(process.env.CONNECTION_STRING).then(() => {
     console.log('Connected to MongoDB');
@@ -29,7 +30,6 @@ mongoose.connect(process.env.CONNECTION_STRING).then(() => {
 const net = require('net');
 
 const client = new net.Socket();
-
 const ip_address = '127.0.0.1';
 const port_no = 5555;
 
@@ -38,12 +38,16 @@ client.connect(port_no, ip_address, () => {
     // Send the size of the Bloom Filter to the C++ server
     client.write('8 1 2');
 
-    // Adding URL1 to blacklist in Bloom Filter (URL1 saved in environment variable)
-    client.write(process.env.URL1, () => {
-        console.log('URL1 sent');
+    // Sending multiple URLs
+    const urls = [process.env.URL1, process.env.URL2, process.env.URL3];
+    urls.forEach(url => {
+        if (url) {
+            client.write(url + "\n", () => {
+                console.log(`${url} sent`);
+            });
+        }
     });
 });
-
 
 client.on('data', (data) => {
     console.log('Received:', data.toString());
@@ -81,4 +85,4 @@ app.get('*', (req, res) => {
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on http://localhost:${process.env.PORT}`);
-  });
+});

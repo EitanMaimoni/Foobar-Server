@@ -25,7 +25,7 @@ function linksVerification(req, res, next) {
         const message = `2 ${link}`;
 
         client.connect(port_no, ip_address, () => {
-            console.log("Connected to C++ server to check link: ${link}");
+            console.log(`Connected to C++ server to check link: ${link}`);
             console.log(`Sending "${message}" to server`);
             client.write(message);
             client.end();  // Close the sending side of the socket
@@ -38,7 +38,7 @@ function linksVerification(req, res, next) {
         });
 
         client.on('end', () => {
-            console.log(`server has finished sending data for link: ${link}`);
+            console.log(`Server has finished sending data for link: ${link}`);
         });
 
         client.on('close', () => {
