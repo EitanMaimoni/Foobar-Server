@@ -1,3 +1,5 @@
+(blocked urls: www.facebook.com, www.google.com, www.chrome.com)
+
 #create post
 ![צילום מסך 2024-04-21 195750](https://github.com/EitanMaimoni/server/assets/118337931/529c83ff-d15b-4290-a261-2a9407a7496d)
 
