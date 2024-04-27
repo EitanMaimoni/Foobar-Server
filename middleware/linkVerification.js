@@ -1,56 +1,63 @@
 const net = require('net');
 
-// Define the linksVerification middleware function
 function linksVerification(req, res, next) {
-    const client = new net.Socket();
-
     const ip_address = '127.0.0.1';
     const port_no = 5555;
-
-    // Extract the content from the request body
-    const content = req.body.content; // Assuming the content is sent in the request body
-
-    // Regular expression to extract the link from the content
+    const content = req.body.content;
     const linkRegex = /(?:^|\s)(www.[^\s]+)/g;
-    const match = linkRegex.exec(content);
+    let match;
+    let links = [];
 
-    if (match) {
-        const link = match[0]; // Extract the link from the matched regex
-        const message = `2 ${link}`; // Prepare the message to send to the server
+    while ((match = linkRegex.exec(content)) !== null) {
+        links.push(match[0].trim());
+    }
+
+    if (links.length === 0) {
+        console.log('No link found in the content');
+        return next();
+    }
+
+    let completedChecks = 0;
+    let hasError = false;
+
+    links.forEach(link => {
+        const client = new net.Socket();
+        const message = `2 ${link}`;
 
         client.connect(port_no, ip_address, () => {
-            console.log('Connected to C++ server');
+            console.log(`Connected to C++ server to check link: ${link}`);
             console.log(`Sending "${message}" to server`);
-            client.write(message); // Send the message to the server
+            client.write(message);
+            client.end();  // Close the sending side of the socket
         });
 
         let responseData = '';
 
         client.on('data', (data) => {
-            responseData += data.toString(); // Append data to responseData
+            responseData += data.toString();
+        });
+
+        client.on('end', () => {
+            console.log(`Server has finished sending data for link: ${link}`);
         });
 
         client.on('close', () => {
-            console.log('Connection closed');
-            // Check if responseData contains 'true\ntrue'
-            if (responseData.trim() === 'true\ntrue') {
-                // If the server returns 'true\ntrue', cancel the process
+            completedChecks++;
+            if (responseData.trim() === 'true\ntrue' && !hasError) {
+                hasError = true;
                 console.log('Server returned true, cancelling the process');
-                return res.status(400).json({ error: 'Server returned true, cancelling the process' });
-            } else {
-                // If the server returns anything else, continue with the next middleware
+                res.status(400).json({ error: 'Server returned true, cancelling the process' });
+            } else if (completedChecks === links.length && !hasError) {
                 next();
             }
         });
-client.on('error', (err) => {
+
+        client.on('error', (err) => {
             console.error('Error:', err);
-            // If there's an error, continue with the next middleware
-            next();
+            hasError = true;
+            res.status(500).json({ error: 'Server error' });
         });
-    } else {
-        console.log('No link found in the content');
-        next();
-    }
+    });
 }
 
 module.exports = linksVerification;
