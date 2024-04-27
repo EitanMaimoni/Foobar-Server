@@ -1,4 +1,4 @@
-Setting up work enviroment
+Setting up work enviroment (working on linux)
 
 
 #step 1
@@ -7,7 +7,7 @@ clone the cpp server into your computer from git(production part 4 branch)
 
 https://github.com/EitanMaimoni/Project-ONE-ex1
 
-run the cpp server with the following commands:
+make sure you have the latest version of node.js, then run the cpp server with the following commands:
 
 mkdir build
 cd build
@@ -19,7 +19,7 @@ make
 
 #step 2
 
-clone the js server into your computer from git (production part 4 branch)
+make sure you have mondgoDB on ur computer, then clone the js server into your computer from git (production part 4 branch)
 
 https://github.com/EitanMaimoni/project-one-server
 
