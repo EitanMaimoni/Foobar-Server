@@ -10,9 +10,13 @@ https://github.com/EitanMaimoni/Project-ONE-ex1
 make sure you have the latest version of node.js, then run the cpp server with the following commands:
 
 mkdir build
+
 cd build
+
 cmake ..
+
 make
+
 ./BloomFilter
 ![צילום מסך 2024-04-21 193043](https://github.com/EitanMaimoni/server/assets/155368597/06e27646-9f42-44ba-afe0-ac3d8f726c50)
 
