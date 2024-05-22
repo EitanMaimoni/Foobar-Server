@@ -1,25 +1,34 @@
-web app:
-press the signup button
+### Web App Sign Up Process:
 
-![צילום מסך 2024-04-21 194055](https://github.com/EitanMaimoni/server/assets/155368597/44175c6b-bd37-490e-ac57-2d7c69b01727)
+1. Press the "Sign Up" button:
 
-fill in your details and upload a photo(a must!)
-![צילום מסך 2024-04-21 194323](https://github.com/EitanMaimoni/server/assets/155368597/ec5d86f4-d305-4f7a-a564-fac1dfb84d06)
+![Screenshot at 2024-05-22 18-26-10](https://github.com/EitanMaimoni/project-one-server/assets/155370325/abde0036-1d9c-42b1-b199-92069346bd99)
 
-then login using the username and password you just picked!
+2. Fill in your details and upload a photo (required):
 
-![צילום מסך 2024-04-21 194415](https://github.com/EitanMaimoni/server/assets/155368597/d3c58c49-b7f9-41b0-aa30-5d9014d8ed25)
-![צילום מסך 2024-04-21 194953](https://github.com/EitanMaimoni/server/assets/155368597/8c2a04e2-3ba0-49f7-a658-0ccb69647a37)
-or connect to built-in users:
-![צילום מסך 2024-04-21 200027](https://github.com/EitanMaimoni/server/assets/155368597/b689576f-a481-41b9-8e42-9f90ecd83d52)
+![Screenshot at 2024-05-22 18-31-44](https://github.com/EitanMaimoni/project-one-server/assets/155370325/cf1c562c-de43-4f28-a814-7ddfa5f36d1c)
 
+3. Login using the username and password you just selected:
 
-android:
-press the signup button and fill in your details and upload a photo(a must!)
-![צילום מסך 2024-04-21 194229](https://github.com/EitanMaimoni/server/assets/118337931/40ae9935-4f5c-434c-8e7f-651a59d7c8b8)
+![Screenshot at 2024-05-22 19-04-33](https://github.com/EitanMaimoni/project-one-server/assets/155370325/10a039ab-2012-4be9-8752-427d69162b80)
+![Screenshot at 2024-05-22 18-59-22](https://github.com/EitanMaimoni/project-one-server/assets/155370325/d505b590-a40b-4097-a2dd-fd079a89e042)
 
-then login using the username and password you just picked!
+   Or connect to our built-in users (Username: "a" Password: "a"):
+   
+![Screenshot at 2024-05-22 19-06-44](https://github.com/EitanMaimoni/project-one-server/assets/155370325/bfd44a7c-3b26-41c8-8c15-b743f8351a62)
 
 
+---
 
-![צילום מסך 2024-04-21 194252](https://github.com/EitanMaimoni/server/assets/118337931/51df59a6-4930-41f3-b8cd-d718ed3dbcfc)
+### Android App Sign Up Process:
+
+1. Press the "Sign Up" button and fill in your details and upload a photo (required).
+
+   ![Sign Up and Fill Details](https://github.com/EitanMaimoni/server/assets/118337931/40ae9935-4f5c-434c-8e7f-651a59d7c8b8)
+
+2. Login using the username and password you just selected.
+
+   ![Login](https://github.com/EitanMaimoni/server/assets/118337931/51df59a6-4930-41f3-b8cd-d718ed3dbcfc)
+
+
+
