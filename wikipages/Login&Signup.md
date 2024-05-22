@@ -22,11 +22,11 @@
 
 ### Android App Sign Up Process:
 
-1. Press the "Sign Up" button and fill in your details and upload a photo (required).
+1. Press the "Sign Up" button and fill in your details and upload a photo (required):
 
    ![Sign Up and Fill Details](https://github.com/EitanMaimoni/server/assets/118337931/40ae9935-4f5c-434c-8e7f-651a59d7c8b8)
 
-2. Login using the username and password you just selected.
+2. Login using the username and password you just selected:
 
    ![Login](https://github.com/EitanMaimoni/server/assets/118337931/51df59a6-4930-41f3-b8cd-d718ed3dbcfc)
 
