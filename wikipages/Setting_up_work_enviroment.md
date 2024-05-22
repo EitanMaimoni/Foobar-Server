@@ -74,8 +74,7 @@
    npm start
    ```
    
-  ![Screenshot at 2024-05-22 18-06-39](https://github.com/EitanMaimoni/project-one-server/assets/155370325/1209ee0f-c204-4712-b34d-b660f0e1a390)
-
+ ![Screenshot at 2024-05-22 18-57-15](https://github.com/EitanMaimoni/project-one-server/assets/155370325/f70c4762-f349-49d1-8611-5ed363ffab16)
 
 7. Open your web browser and go to [http://localhost:12345](http://localhost:12345). The web app should be running.
    
